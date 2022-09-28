@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpileOnly --ignore-watch node_modules -no-notify src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "author": "Joao Vitor Brietzke de Lima",
   "license": "ISC",
