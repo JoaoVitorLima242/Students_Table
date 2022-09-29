@@ -41,9 +41,9 @@ class AuthController {
         const passwordHash = await bcrypt.hash(password, salt)
 
         const user = new UserSchema({
-        email,
-        name,
-        password: passwordHash
+            email,
+            name,
+            password: passwordHash
         })
 
         try {
@@ -63,8 +63,21 @@ class AuthController {
         } catch (error) {
             res.status(400).json({ error: true, message: 'Erro ao tentar criar um usuário.' })
         }
-      
     }
+
+    public async Login (req: Request, res: Response): Promise<Response> {
+        const {
+            email,
+            password
+          }: AuthRequest = req.body
+      
+          // Check if user exist
+          const user = await UserSchema.findOne({ email })
+          if (!user) {
+            return res.status(400).json({ error: 'Não ha usuario cadastrado com esse email !' })
+          }
+    }
+
 }
 
 export default new AuthController()
