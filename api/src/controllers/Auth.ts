@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
+// Models
 import UserSchema from '../models/User'
 
 type AuthRequest = {

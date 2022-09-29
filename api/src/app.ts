@@ -3,7 +3,9 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 
+// Routes
 import AuthRoute from './routes/auth.route'
+import UserRoute from './routes/user.route'
 
 class App {
     public express: express.Application
@@ -36,6 +38,7 @@ class App {
     
     private routes (): void {
       this.express.use('/api/auth', AuthRoute)
+      this.express.use('/api/admin/user', UserRoute)
       this.express.use('/', (req, res) => {
         res.json({message: 'Hello World :)'})
       })
