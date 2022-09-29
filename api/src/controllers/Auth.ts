@@ -69,13 +69,42 @@ class AuthController {
         const {
             email,
             password
-          }: AuthRequest = req.body
-      
-          // Check if user exist
-          const user = await UserSchema.findOne({ email })
-          if (!user) {
-            return res.status(400).json({ error: 'Não ha usuario cadastrado com esse email !' })
-          }
+        }: AuthRequest = req.body
+    
+        // Check if user exist
+        const user = await UserSchema.findOne({ email })
+        if (!user) {
+          return res.status(400).json({ error: 'Não ha usuario cadastrado com esse email !' })
+        }
+
+        const {
+            _id,
+            name,
+            password: userPassword
+        } = user
+
+        // Check if password match
+        const checkPassword = await bcrypt.compare(password, userPassword)
+        if (!checkPassword) {
+        return res.status(400).json({ error: 'Senha inválida !' })
+        }
+
+        try {
+        // Create token
+        const token = jwt.sign(
+            // Payload
+            {
+            name,
+            id: _id
+            },
+            process.env.TOKEN_SECRET
+        )
+
+        res.json({ error: null, msg: 'Você realizou o login com sucesso.', token, userId: user._id })
+        } catch (error) {
+        res.status(400).json({error})
+        }
+
     }
 
 }
