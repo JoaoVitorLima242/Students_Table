@@ -6,6 +6,9 @@ import {
     Redirect
 } from "react-router-dom";
 
+// Pages
+import Login from "../pages/Login";
+
 const Routes = () => {
     const isAuth = false
 
@@ -28,7 +31,7 @@ const Routes = () => {
         <Router>
             <div>
                 <Switch>
-                    <Route path="/login" exact/>
+                    <Route path="/login" exact component={Login}/>
                     <Route>
                         <Redirect to={isAuth ? '/dashboard' : '/login'}/>
                     </Route>
@@ -37,3 +40,5 @@ const Routes = () => {
         </Router>
     );
 }
+
+export default Routes

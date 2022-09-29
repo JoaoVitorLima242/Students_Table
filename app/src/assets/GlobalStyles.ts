@@ -9,6 +9,7 @@ const GlobalStyle: GlobalStyleComponent<GlobalStylesProps, DefaultTheme> = creat
             padding: 0;
             margin: 0;
             background-color: ${theme.colors.dark.primary};
+            color: ${theme.colors.font.primary}
         }
     
         * {

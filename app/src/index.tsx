@@ -1,14 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { ThemeProvider } from 'styled-components';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import App from './App';
+// Assets
+import Theme from './assets/Theme';
+import GlobalStyle from './assets/GlobalStyles';
+// Routes
+import Routes from './routes';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={Theme}>
+      <GlobalStyle />
+      <Routes />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
