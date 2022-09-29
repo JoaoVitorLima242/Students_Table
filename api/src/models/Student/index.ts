@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose'
 
 import { StudentInterface } from './index.d'
 
-const UserSchema = new Schema<StudentInterface>({
+const StudentSchema = new Schema<StudentInterface>({
   name: { type: String, required: true },
   picture: { type: String, required: true },
   addres: { 
@@ -18,4 +18,4 @@ const UserSchema = new Schema<StudentInterface>({
   timestamps: true
 })
 
-export default model<StudentInterface>('Student', UserSchema)
+export default model<StudentInterface>('Student', StudentSchema)
