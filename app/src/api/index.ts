@@ -1,7 +1,7 @@
 import axios from "axios"
 import cookies from "../helpers/cookies"
 
-export const apiConfig = () => {
+const apiConfig = () => {
     const api = axios.create({
         baseURL: 'http://localhost:3001'
     })
@@ -17,3 +17,5 @@ export const apiConfig = () => {
 
   return api
 }
+
+export const api = apiConfig()
