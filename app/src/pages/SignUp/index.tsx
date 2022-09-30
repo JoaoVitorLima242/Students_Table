@@ -1,19 +1,38 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 // Components
 import { Link } from 'react-router-dom'
+import { registerRequest } from '../../api/Auth'
+import { RegisterData } from '../../api/Auth/types'
+import Alert from '../../components/Alert'
 import Button from '../../components/Button'
-import Card from '../../components/Card'
 import Col from '../../components/Col'
 import Input from '../../components/Input'
 import Row from '../../components/Row'
+import cookies from '../../helpers/cookies'
 // Styles
 import * as S from './styles'
 
 const SignUp = () => {
     const { register, handleSubmit } = useForm()
 
-    const onSubmit = data => console.log(data)
+    const [error, setError] = useState('') 
+    const [loading, setLoading] = useState(false) 
+
+    const onSubmit = async (data: RegisterData) => {
+        setLoading(true)
+        const {message, error, token } = await registerRequest(data)
+        setLoading(false)
+        if (error) {
+            setError(message)
+            return
+        }
+
+        console.log(token)
+        
+        cookies.set('auth-token', token, {expires: 86400})
+    }
 
     return (
         <S.Wrapper>
@@ -54,9 +73,14 @@ const SignUp = () => {
                         />
                     </Col>
                 </Row>
+                { error &&
+                    <Alert type='danger'>
+                        {error}
+                    </Alert>
+                }
                 <Row>
                     <Col>
-                        <Button>Criar</Button>
+                        <Button>{loading ? '...Criando' : 'Criar'}</Button>
                     </Col>
                 </Row>
                 <Row>

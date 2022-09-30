@@ -1,4 +1,4 @@
-export type PostRequest = {
+export class PostRequest {
     error: string
     message: string
 }

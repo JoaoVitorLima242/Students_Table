@@ -60,7 +60,7 @@ class AuthController {
             process.env.TOKEN_SECRET!
         )
 
-            res.json({ error: null, message: 'Você realizou o cadastro com sucesso.', token, userId: newUser._id })
+            res.json({ error: null, message: 'Você realizou o cadastro com sucesso.', token})
         } catch (error) {
             res.status(400).json({ error: true, message: 'Erro ao tentar criar um usuário.' })
         }
@@ -101,7 +101,7 @@ class AuthController {
             process.env.TOKEN_SECRET
         )
 
-        res.json({ error: null, msg: 'Você realizou o login com sucesso.', token, userId: user._id })
+        res.json({ error: null, msg: 'Você realizou o login com sucesso.', token })
         } catch (error) {
         res.status(400).json({error})
         }

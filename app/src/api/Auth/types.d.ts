@@ -1,9 +1,8 @@
 import { PostRequest } from '../types'
 
-export class AuthRequest extends PostRequest {
+export type AuthRequest = {
     token: string
-    userId: string
-}
+} & PostRequest
 
 export type RegisterData = {
     name: string

@@ -18,7 +18,7 @@ export const Form = styled.form`
         font-size: 16px;
         line-height: 24px;
         font-weight: 400;
-        max-width: 350px;
+        max-width: 370px;
         min-height: 300px;
         width: 100%;
         padding: 30px 20px;
