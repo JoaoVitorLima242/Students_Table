@@ -2,14 +2,14 @@ import React from 'react'
 import { UseFormRegisterReturn } from 'react-hook-form'
 
 // Styles
-import * as S from './index'
+import * as S from './styles'
 
 type InputProps = {
     type?: string
     defaultValue?: string | number | readonly string[]
     placeholder?: string;
     register: UseFormRegisterReturn<string>;
-    disabled: boolean
+    disabled?: boolean
 }
 
 const Input = ({type, placeholder, defaultValue, register, disabled}: InputProps) => {

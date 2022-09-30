@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Card } from "../../components/Card";
+import { Card } from "../../components/Card/styles";
 
 export const Wrapper = styled.main`
     ${({theme}) => css`
@@ -11,9 +11,13 @@ export const Wrapper = styled.main`
     `}
 `
 
-export const Form = styled(Card)`
+export const Form = styled.form`
     ${({theme}) => css`
-    
+        border-radius: 12px;
+        background-color: #fff;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 400;
         max-width: 350px;
         min-height: 300px;
         width: 100%;

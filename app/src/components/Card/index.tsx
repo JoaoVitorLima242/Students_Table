@@ -1,5 +1,5 @@
 import React from 'react'
-import * as S from './index'
+import * as S from './styles'
 
 type CardProps = {
     children: React.ReactNode
