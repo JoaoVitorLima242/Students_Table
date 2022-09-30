@@ -4,13 +4,19 @@ export default {
         primary: '#1e1e2f',
         secondary: '#27293d',
       },
-      blue: {
-        primary: '#1d8cf8',
-        darker: '#2b3553',
-        backgroundLinear: 'linear-gradient(to bottom left,#1d8cf8,#3358f4,#1d8cf8)'
+      green: {
+        primary: '#01dda5',
+        secondary: '#01dda515',
+      },
+      purple: {
+        primary: '#763ff9',
+        secondary: '#763ff915',
+      },
+      white: {
+        primary: '#f8f9fb'
       },
       font: {
-        primary: '#ffffff80',
+        primary: '#00162F',
         secondary: '#525f7f'
       }
     }

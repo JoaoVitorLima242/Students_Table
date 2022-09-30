@@ -8,8 +8,9 @@ const GlobalStyle: GlobalStyleComponent<GlobalStylesProps, DefaultTheme> = creat
         body {
             padding: 0;
             margin: 0;
-            background-color: ${theme.colors.dark.primary};
+            background-color: ${theme.colors.white.primary};
             color: ${theme.colors.font.primary}
+            font-family: 'Roboto' sans-serif
         }
     
         * {
