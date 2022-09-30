@@ -13,6 +13,7 @@ export const Wrapper = styled.main`
 
 export const Form = styled(Card)`
     ${({theme}) => css`
+    
         max-width: 350px;
         min-height: 300px;
         width: 100%;

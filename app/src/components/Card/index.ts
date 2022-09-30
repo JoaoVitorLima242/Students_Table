@@ -4,7 +4,7 @@ export const Card = styled.div.attrs(() => ({
     className: 'card'
 }))`
     ${({theme}) => css`
-        background-color: #f8f9fb;
+        background-color: #fff;
         font-family: Inter, sans-serif;
         font-size: 16px;
         line-height: 24px;

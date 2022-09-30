@@ -8,6 +8,7 @@ import {
 
 // Pages
 import Login from "../pages/Login";
+import SignUp from "../pages/SignUp";
 
 const Routes = () => {
     const isAuth = false
@@ -32,6 +33,7 @@ const Routes = () => {
             <div>
                 <Switch>
                     <Route path="/login" exact component={Login}/>
+                    <Route path="/signup" exact component={SignUp}/>
                     <Route>
                         <Redirect to={isAuth ? '/dashboard' : '/login'}/>
                     </Route>
