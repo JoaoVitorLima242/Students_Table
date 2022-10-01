@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 
 // Helpers
 import { isAuthenticated } from "../helpers/cookies";
+import { AddStudent } from "../pages/AddStudent";
 // Pages
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
@@ -46,6 +47,7 @@ const Routes = () => {
                 {isAuth && <Navbar />}
                 <Switch>
                     <PrivateRoute exact component={Dashboard} path='/dashboard' activeMenu='dashboard'/>
+                    <PrivateRoute exact component={AddStudent} path='/add-student' activeMenu='add-student'/>
                     <Route path="/login" exact component={Login}/>
                     <Route path="/signup" exact component={SignUp}/>
                     <Route>

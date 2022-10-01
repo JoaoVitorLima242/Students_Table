@@ -12,7 +12,8 @@ const StudentSchema = new Schema<StudentInterface>({
     complement: {type: String},
     distric: {type: String},
     uf: {type: String},
-    city: {type: String}
+    city: {type: String},
+    cep: {type: String}
   }
 },
 {

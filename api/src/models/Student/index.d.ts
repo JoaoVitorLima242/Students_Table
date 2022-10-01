@@ -9,6 +9,7 @@ export interface StudentInterface extends Document {
         complement: string
         distric: string
         uf: string
-        city: string    
+        city: string
+        cep: string   
     };
 }
