@@ -76,3 +76,16 @@ export const Form = styled.form`
         }
     `}
 `
+
+export const ImageContent = styled.div`
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 10px auto 0;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+`

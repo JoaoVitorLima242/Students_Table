@@ -14,6 +14,7 @@ import Row from '../../components/Row'
 import Select from '../../components/Select'
 // Styles
 import * as S from './styles'
+import Placeholcer from '../../assets/images/personPlaceholder.jpeg'
 
 export const AddStudent = () =>{
     const {register, handleSubmit, setValue} = useForm()
@@ -25,8 +26,9 @@ export const AddStudent = () =>{
     }
 
     const pictureInputHandler = async (e: ChangeEvent<HTMLInputElement>) => {
-        const response = await uploadImage(e.target.files[0])
-        console.log(response)
+        const {imageUrl} = await uploadImage(e.target.files[0])
+        setImage(imageUrl)
+        setValue('picture', imageUrl)
     }   
 
     const CEPHandler = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,15 +79,9 @@ export const AddStudent = () =>{
                         <p>Complete todos os campos do formulário para criar.</p>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        <Label>Nome</Label>
-                        <Input 
-                            placeholder='Nome do estudante'
-                            register={register('name')}
-                        />
-                    </Col>
-                </Row>
+                <S.ImageContent>
+                    <img src={image || Placeholcer} alt='Estudante'/>
+                </S.ImageContent>
                 <Row>
                     <Col>
                         <Label>Foto</Label>
@@ -93,6 +89,15 @@ export const AddStudent = () =>{
                             type='file'
                             onChange={pictureInputHandler}
                             name='picture'
+                        />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Label>Nome</Label>
+                        <Input 
+                            placeholder='Nome do estudante'
+                            register={register('name')}
                         />
                     </Col>
                 </Row>
