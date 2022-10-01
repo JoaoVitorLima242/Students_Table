@@ -1,4 +1,5 @@
 export type StudentDataResquest = {
+    _id: string
     name: string;
     picture: string;
     address: {

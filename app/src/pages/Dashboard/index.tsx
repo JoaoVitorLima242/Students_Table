@@ -1,14 +1,18 @@
-import { FaPlus } from 'react-icons/fa'
+import { useHistory } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { FaPlus, FaMapPin, FaMapMarkedAlt, FaRegEdit, FaTrashAlt, FaEye} from 'react-icons/fa'
 
 // Styles
 import * as S from './styles'
 // Components
 import Search from '../../components/Search'
 import Button from '../../components/Button'
-import { useHistory } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import ButtonIcon from '../../components/ButtonIcon'
+// Requests
 import { getStudents } from '../../api/Student'
 import { StudentDataResquest } from '../../api/Student/types'
+// Helpers
+import { maxLengthString } from '../../helpers/string'
 
 const Dashboard = () => {
     const history = useHistory()
@@ -33,6 +37,8 @@ const Dashboard = () => {
 
     const goTo = (path: string) => history.push(path)
 
+    const strMaxLength = 16
+
     return (
         <S.Wrapper>
             <S.Interaction>
@@ -47,10 +53,24 @@ const Dashboard = () => {
             </S.Interaction>
             <S.StudentsGrid>
                 {students && students.length > 0 ?
-                    students.map((student) => {
+                    students.map(({picture, name, address, _id}) => {
                         return (
-                            <S.StudentCard>
-                                
+                            <S.StudentCard key={_id}>
+                                <S.ImageContent>
+                                    <img src={picture} alt=''/>
+                                </S.ImageContent>
+                                <S.Infos>
+                                    <h4>{name}</h4>
+                                    <S.InfoWithIcon>
+                                        <p><FaMapPin/><span>{maxLengthString(strMaxLength,address.street)} | {address.houseNr} {address.complement && `| ${address.complement}`} </span></p>
+                                        <p><FaMapMarkedAlt/><span>{maxLengthString(strMaxLength,address.city)} |  {address.uf}</span></p>
+                                    </S.InfoWithIcon>
+                                    <S.ButtonsIconsContainer>
+                                        <ButtonIcon><FaEye/></ButtonIcon>
+                                        <ButtonIcon color='green'><FaRegEdit/></ButtonIcon>
+                                        <ButtonIcon color='red'><FaTrashAlt/></ButtonIcon>
+                                    </S.ButtonsIconsContainer>
+                                </S.Infos>
                             </S.StudentCard>
                         )
                     })

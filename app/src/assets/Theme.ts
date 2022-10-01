@@ -8,6 +8,10 @@ export default {
         primary: '#01dda5',
         secondary: '#01dda515',
       },
+      red: {
+        primary: '#f85b43',
+        secondary: '#f85b4315',
+      },
       purple: {
         primary: '#763ff9',
         secondary: '#763ff915',
