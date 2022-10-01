@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
+
+// Models
 import StudentSchema from '../models/Student'
-import Token from '../helpers/token'
-import { StudentStorage } from '../helpers/storage'
 
 type StudentRequest = {
     name: string;
@@ -27,13 +27,6 @@ class StudentControllers {
       complement,
     }: StudentRequest = req.body
 
-    let file: Express.Multer.File
-    console.log(req.file)
-
-    if (req.file) {
-      file = req.file
-    }
-
     if (name === undefined || city === undefined || street === undefined || houseNr === undefined || uf === undefined || distric === undefined || picture === undefined) {
       return res.status(400).json({ error:true, message:'Preencha todos os campos.' })
     }
@@ -49,8 +42,7 @@ class StudentControllers {
           uf,
           distric,
           complement,
-        },
-        picture: file.path
+        }
       })
 
       try {

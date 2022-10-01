@@ -1,8 +1,9 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 // Requests
 import { getAddressByCep } from '../../api/Address'
+import { uploadImage } from '../../api/Image'
 import { createStudent } from '../../api/Student'
 import Button from '../../components/Button'
 // Components
@@ -17,9 +18,16 @@ import * as S from './styles'
 export const AddStudent = () =>{
     const {register, handleSubmit, setValue} = useForm()
 
+    const [image, setImage] = useState('')
+
     const onSubmit = (data) => {
         createStudent(data)
     }
+
+    const pictureInputHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+        const response = await uploadImage(e.target.files[0])
+        console.log(response)
+    }   
 
     const CEPHandler = async (e: ChangeEvent<HTMLInputElement>) => {
         const formatedCEP = e.target.value.replace('-', '')
@@ -62,7 +70,7 @@ export const AddStudent = () =>{
 
     return(
         <S.Wrapper>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
+            <S.Form onSubmit={handleSubmit(onSubmit)} encType='mulitpart/form-data'>
                 <Row>
                     <Col>
                         <h2>Adicione um estudante!</h2>
@@ -83,7 +91,8 @@ export const AddStudent = () =>{
                         <Label>Foto</Label>
                         <Input 
                             type='file'
-                            register={register('picture')}
+                            onChange={pictureInputHandler}
+                            name='picture'
                         />
                     </Col>
                 </Row>

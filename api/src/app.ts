@@ -7,6 +7,7 @@ import mongoose from 'mongoose'
 import AuthRoute from './routes/auth.route'
 import UserRoute from './routes/user.route'
 import StudentRoute from './routes/student.route'
+import ImageRoute from './routes/image.route'
 
 class App {
     public express: express.Application
@@ -41,6 +42,7 @@ class App {
       this.express.use('/api/auth', AuthRoute)
       this.express.use('/api/admin/user', UserRoute)
       this.express.use('/api/admin/student', StudentRoute)
+      this.express.use('/api/image', ImageRoute)
     }
 
 
