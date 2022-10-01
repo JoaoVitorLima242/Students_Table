@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 
 // Requests
 import { getAddressByCep } from '../../api/Address'
+import { createStudent } from '../../api/Student'
 import Button from '../../components/Button'
 // Components
 import Col from '../../components/Col'
@@ -17,7 +18,7 @@ export const AddStudent = () =>{
     const {register, handleSubmit, setValue} = useForm()
 
     const onSubmit = (data) => {
-        console.log(data)
+        createStudent(data)
     }
 
     const CEPHandler = async (e: ChangeEvent<HTMLInputElement>) => {

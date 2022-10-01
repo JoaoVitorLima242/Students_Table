@@ -6,30 +6,35 @@ import { StudentStorage } from '../helpers/storage'
 type StudentRequest = {
     name: string;
     picture: string;
-    address: {
-        street: string
-        houseNr: string
-        complement: string
-        distric: string
-        uf: string
-        city: string    
-    };
+    street: string
+    houseNr: string
+    complement: string
+    distric: string
+    uf: string
+    city: string    
 }
 
 class StudentControllers {
   public async createStudent (req: Request, res: Response): Promise<Response> {
     const {
       name,
-      address
+      picture,
+      city,
+      street,
+      houseNr,
+      uf,
+      distric,
+      complement,
     }: StudentRequest = req.body
 
     let file: Express.Multer.File
+    console.log(req.file)
 
     if (req.file) {
       file = req.file
     }
 
-    if (name === undefined || address === undefined ) {
+    if (name === undefined || city === undefined || street === undefined || houseNr === undefined || uf === undefined || distric === undefined || picture === undefined) {
       return res.status(400).json({ error:true, message:'Preencha todos os campos.' })
     }
 
@@ -37,7 +42,14 @@ class StudentControllers {
 
       const Student = new StudentSchema({
         name,
-        address,
+        address: {
+          city,
+          street,
+          houseNr,
+          uf,
+          distric,
+          complement,
+        },
         picture: file.path
       })
 
@@ -48,7 +60,7 @@ class StudentControllers {
         return res.status(400).json(error)
       }
     } catch (error) {
-      return res.status(400).json(error)
+      return res.status(400).json(error.message)
     }
   }
 }
