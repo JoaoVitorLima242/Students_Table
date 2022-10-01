@@ -6,7 +6,7 @@ import { StudentInterface } from './index.d'
 const StudentSchema = new Schema<StudentInterface>({
   name: { type: String, required: true },
   picture: { type: String, required: true },
-  addres: { 
+  address: { 
     street: { type: String },
     houseNr: {type: String},
     complement: {type: String},

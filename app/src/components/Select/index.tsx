@@ -11,13 +11,15 @@ type InputProps = {
     register?: UseFormRegisterReturn<string>;
     disabled?: boolean
     onChange?: React.ChangeEventHandler<HTMLSelectElement>
+    name: string
 }
 
-const Select = ({ placeholder, defaultValue, register, disabled, onChange, children}: InputProps) => {
+const Select = ({ placeholder, defaultValue, register, disabled, onChange, children, name}: InputProps) => {
     return (
         <S.Input
             placeholder={placeholder}
             defaultValue={defaultValue}
+            name={name}
             {...register}
             disabled={disabled}
             onChange={onChange}

@@ -15,14 +15,20 @@ import Select from '../../components/Select'
 // Styles
 import * as S from './styles'
 import Placeholcer from '../../assets/images/personPlaceholder.jpeg'
+import { useHistory } from 'react-router-dom'
 
 export const AddStudent = () =>{
     const {register, handleSubmit, setValue} = useForm()
+    const history = useHistory()
 
     const [image, setImage] = useState('')
 
-    const onSubmit = (data) => {
-        createStudent(data)
+    const onSubmit = async (data) => {
+        const {error, message} = await createStudent(data)
+        if (error) {
+
+        }
+        history.push('/dashboard')
     }
 
     const pictureInputHandler = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -31,10 +37,15 @@ export const AddStudent = () =>{
         setValue('picture', imageUrl)
     }   
 
+    const fieldsHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setValue(e.target.name, e.target.value)
+    }
+
     const CEPHandler = async (e: ChangeEvent<HTMLInputElement>) => {
         const formatedCEP = e.target.value.replace('-', '')
         if(formatedCEP.length === 8) {
             const address = await getAddressByCep(e.target.value)
+            setValue('cep', formatedCEP)
             setValue('city', address.localidade)
             setValue('uf', address.uf)
             setValue('street', address.logradouro)
@@ -72,7 +83,7 @@ export const AddStudent = () =>{
 
     return(
         <S.Wrapper>
-            <S.Form onSubmit={handleSubmit(onSubmit)} encType='mulitpart/form-data'>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
                 <Row>
                     <Col>
                         <h2>Adicione um estudante!</h2>
@@ -97,7 +108,9 @@ export const AddStudent = () =>{
                         <Label>Nome</Label>
                         <Input 
                             placeholder='Nome do estudante'
+                            name='name'
                             register={register('name')}
+                            onChange={fieldsHandler}
                         />
                     </Col>
                 </Row>
@@ -105,21 +118,29 @@ export const AddStudent = () =>{
                 <Row>
                     <Col>
                         <Label>CEP</Label>
-                        <Input onChange={CEPHandler} register={register('cep')} placeholder='00000-000'/>
+                        <Input 
+                            onChange={CEPHandler} 
+                            register={register('cep')}
+                            placeholder='00000-000'
+                        />
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <Label>Cidade</Label>
                         <Input 
-                            register={register('city')} 
+                            name='uf'
+                            onChange={fieldsHandler}
+                            register={register('city')}
                             placeholder='Cidade' 
                         />
                     </Col>
                     <Col>
                         <Label>Estado</Label>
                         <Select 
-                            register={register('uf')} 
+                            name='uf'
+                            onChange={fieldsHandler}
+                            register={register('uf')}
                             placeholder='Estado'
                         >
                              <option value=''>--Estado---</option>
@@ -133,8 +154,10 @@ export const AddStudent = () =>{
                     <Col>
                         <Label>Rua</Label>
                         <Input
-                            register={register('street')} 
+                            name='street'
+                            onChange={fieldsHandler}
                             placeholder='Rua'
+                            register={register('street')}
                         />
                     </Col>
                 </Row>
@@ -142,7 +165,9 @@ export const AddStudent = () =>{
                     <Col>
                         <Label>Bairro</Label>
                         <Input 
-                            register={register('distric')} 
+                            name='distric'
+                            register={register('distric')}
+                            onChange={fieldsHandler}
                             placeholder='Bairro'
                         />
                     </Col>
@@ -151,14 +176,18 @@ export const AddStudent = () =>{
                     <Col>
                         <Label>Número</Label>
                         <Input 
-                            register={register('houseNr')} 
                             placeholder='Número'
+                            name='houseNr'
+                            register={register('houseNr')}
+                            onChange={fieldsHandler}
                         />
                     </Col>
                     <Col>
                         <Label>Complemento</Label>
                         <Input  
-                            register={register('complement')} 
+                            name='complement'
+                            register={register('complement')}
+                            onChange={fieldsHandler}
                             placeholder='Complemento'
                         />
                     </Col>

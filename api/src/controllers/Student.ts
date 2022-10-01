@@ -11,7 +11,8 @@ type StudentRequest = {
     complement: string
     distric: string
     uf: string
-    city: string    
+    city: string
+    cep: string 
 }
 
 class StudentControllers {
@@ -25,6 +26,7 @@ class StudentControllers {
       uf,
       distric,
       complement,
+      cep
     }: StudentRequest = req.body
 
     if (name === undefined || city === undefined || street === undefined || houseNr === undefined || uf === undefined || distric === undefined || picture === undefined) {
@@ -33,8 +35,9 @@ class StudentControllers {
 
     try {
 
-      const Student = new StudentSchema({
+      const newStudent = await new StudentSchema({
         name,
+        picture,
         address: {
           city,
           street,
@@ -42,12 +45,14 @@ class StudentControllers {
           uf,
           distric,
           complement,
+          cep
         }
-      })
+      }).save();
+
+      console.log(newStudent)
 
       try {
-        const newStudent = await Student.save()
-        res.json({ error: null, msg: 'Estudante criado com sucesso!', data: newStudent })
+        res.json({ error: null, msg: 'Estudante criado com sucesso!' })
       } catch (error) {
         return res.status(400).json(error)
       }
