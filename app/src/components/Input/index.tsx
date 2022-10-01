@@ -11,9 +11,10 @@ type InputProps = {
     register?: UseFormRegisterReturn<string>;
     disabled?: boolean
     onChange?: React.ChangeEventHandler<HTMLInputElement>
+    name?: string
 }
 
-const Input = ({type, placeholder, defaultValue, register, disabled, onChange}: InputProps) => {
+const Input = ({type, placeholder, defaultValue, register, disabled, onChange, name}: InputProps) => {
     return (
         <S.Input
             type={type}
@@ -22,6 +23,7 @@ const Input = ({type, placeholder, defaultValue, register, disabled, onChange}: 
             {...register}
             disabled={disabled}
             onChange={onChange}
+            name={name}
         />
     )
 }
