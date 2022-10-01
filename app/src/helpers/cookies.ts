@@ -1,6 +1,5 @@
-import CookieComp from "universal-cookie"
+import cookie from "js-cookie"
 
-const cookie = new CookieComp()
 
 class Cookie {
     get(key: string) {

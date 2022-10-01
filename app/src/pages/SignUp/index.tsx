@@ -85,7 +85,7 @@ const SignUp = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <Link to='/'>Ja tem uma conta?<br/> Acesse no app</Link>
+                        <Link to='/'>Ja tem uma conta?<br/> Acesse nosso app</Link>
                     </Col>
                 </Row>
             </S.Form>

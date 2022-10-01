@@ -75,7 +75,7 @@ class AuthController {
         // Check if user exist
         const user = await UserSchema.findOne({ email })
         if (!user) {
-          return res.status(400).json({ error: 'Não ha usuario cadastrado com esse email !' })
+          return res.status(400).json({ error: true, message: 'Não ha usuario cadastrado com esse email !' })
         }
 
         const {
@@ -87,7 +87,7 @@ class AuthController {
         // Check if password match
         const checkPassword = await bcrypt.compare(password, userPassword)
         if (!checkPassword) {
-        return res.status(400).json({ error: 'Senha inválida !' })
+        return res.status(400).json({ error: true, message: 'Senha inválida !' })
         }
 
         try {
@@ -101,7 +101,7 @@ class AuthController {
             process.env.TOKEN_SECRET
         )
 
-        res.json({ error: null, msg: 'Você realizou o login com sucesso.', token })
+        res.json({ error: false, message: 'Você realizou o login com sucesso.', token })
         } catch (error) {
         res.status(400).json({error})
         }
