@@ -5,6 +5,7 @@ import {
     Route,
     Redirect,
 } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 // Helpers
 import { isAuthenticated } from "../helpers/cookies";
@@ -21,14 +22,14 @@ type PrivateRoutesProps = {
 }
 
 const Routes = () => {
-    const isAuth = false
+    const isAuth = isAuthenticated()
 
     const PrivateRoute = ({ component: Component, activeMenu, exact, path}: PrivateRoutesProps) => (
         <Route
             exact={exact}
             path={path}
             render={(props) =>
-                isAuthenticated() ? (
+                isAuth ? (
                     <Component {...props} activeMenu={activeMenu}/>
                 ) : (
                     <Redirect
@@ -42,6 +43,7 @@ const Routes = () => {
     return (
         <Router>
             <div>
+                {isAuth && <Navbar />}
                 <Switch>
                     <PrivateRoute exact component={Dashboard} path='/dashboard' activeMenu='dashboard'/>
                     <Route path="/login" exact component={Login}/>
