@@ -4,7 +4,7 @@ export interface StudentInterface extends Document {
     name: string;
     picture: string;
     address: {
-        stress: string
+        street: string
         houseNr: string
         complement: string
         distric: string

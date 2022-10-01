@@ -1,19 +1,20 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 // Requests
-import { getAddressByCep } from '../../api/Address'
+import { AddressResponse, getAddressByCep } from '../../api/Address'
 import Button from '../../components/Button'
 // Components
 import Col from '../../components/Col'
 import Input from '../../components/Input'
 import Label from '../../components/Label'
 import Row from '../../components/Row'
+import Select from '../../components/Select'
 // Styles
 import * as S from './styles'
 
 export const AddStudent = () =>{
-    const {register, handleSubmit} = useForm()
+    const {register, handleSubmit, setValue} = useForm()
 
     const onSubmit = (data) => {
         console.log(data)
@@ -22,9 +23,41 @@ export const AddStudent = () =>{
     const CEPHandler = async (e: ChangeEvent<HTMLInputElement>) => {
         const formatedCEP = e.target.value.replace('-', '')
         if(formatedCEP.length === 8) {
-            const response = await getAddressByCep(e.target.value)
+            const address = await getAddressByCep(e.target.value)
+            setValue('city', address.localidade)
+            setValue('uf', address.uf)
+            setValue('street', address.logradouro)
+            setValue('distric', address.bairro)
         }
     }
+    const UFs = ['AC',
+    'AL',
+    'AP',
+    'AM',
+    'BA',
+    'CE',
+    'DF',
+    'ES',
+    'GO',
+    'MA',
+    'MS',
+    'MT',
+    'MG',
+    'PA',
+    'PB',
+    'PR',
+    'PE',
+    'PI',
+    'RJ',
+    'RN',
+    'RS',
+    'RO',
+    'RR',
+    'SC',
+    'SP',
+    'SE',
+    'TO',
+    ]
 
     return(
         <S.Wrapper>
@@ -38,13 +71,19 @@ export const AddStudent = () =>{
                 <Row>
                     <Col>
                         <Label>Nome</Label>
-                        <Input placeholder='Nome do estudante'/>
+                        <Input 
+                            placeholder='Nome do estudante'
+                            register={register('name')}
+                        />
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <Label>Foto</Label>
-                        <Input type='file'/>
+                        <Input 
+                            type='file'
+                            register={register('picture')}
+                        />
                     </Col>
                 </Row>
                 <hr/>
@@ -57,33 +96,56 @@ export const AddStudent = () =>{
                 <Row>
                     <Col>
                         <Label>Cidade</Label>
-                        <Input register={register('city')} placeholder='Cidade'/>
+                        <Input 
+                            register={register('city')} 
+                            placeholder='Cidade' 
+                        />
                     </Col>
                     <Col>
                         <Label>Estado</Label>
-                        <Input register={register('uf')} placeholder='Estado'/>
+                        <Select 
+                            register={register('uf')} 
+                            placeholder='Estado'
+                        >
+                             <option value=''>--Estado---</option>
+                            {UFs.map(uf => (
+                                <option key={uf} value={uf}>{uf}</option>
+                            ))}
+                        </Select>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <Label>Rua</Label>
-                        <Input register={register('stress')} placeholder='Rua'/>
+                        <Input
+                            register={register('street')} 
+                            placeholder='Rua'
+                        />
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <Label>Bairro</Label>
-                        <Input register={register('distric')} placeholder='Bairro'/>
+                        <Input 
+                            register={register('distric')} 
+                            placeholder='Bairro'
+                        />
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <Label>Número</Label>
-                        <Input register={register('houseNr')} placeholder='Número'/>
+                        <Input 
+                            register={register('houseNr')} 
+                            placeholder='Número'
+                        />
                     </Col>
                     <Col>
                         <Label>Complemento</Label>
-                        <Input register={register('complement')} placeholder='Complemento'/>
+                        <Input  
+                            register={register('complement')} 
+                            placeholder='Complemento'
+                        />
                     </Col>
                 </Row>
                 <Row>

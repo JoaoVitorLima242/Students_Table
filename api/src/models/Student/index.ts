@@ -7,7 +7,7 @@ const StudentSchema = new Schema<StudentInterface>({
   name: { type: String, required: true },
   picture: { type: String, required: true },
   addres: { 
-    stress: { type: String },
+    street: { type: String },
     houseNr: {type: String},
     complement: {type: String},
     distric: {type: String},

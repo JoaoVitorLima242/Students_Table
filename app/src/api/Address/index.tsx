@@ -10,8 +10,8 @@ export type AddressResponse ={
   localidade: string
 }
 
-export const getAddressByCep = async (cep: string): Promise<any> => {
-      const data: AddressResponse = await axios
+export const getAddressByCep = async (cep: string): Promise<AddressResponse> => {
+      const data = await axios
         .get(`https://viacep.com.br/ws/${cep}/json/`)
         .then((response) => {
           return response.data
