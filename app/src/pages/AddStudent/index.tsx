@@ -15,18 +15,24 @@ import Select from '../../components/Select'
 // Styles
 import * as S from './styles'
 import Placeholcer from '../../assets/images/personPlaceholder.jpeg'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import Alert from '../../components/Alert'
 
 export const AddStudent = () =>{
     const {register, handleSubmit, setValue} = useForm()
     const history = useHistory()
 
     const [image, setImage] = useState('')
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const onSubmit = async (data) => {
+        setLoading(true)
         const {error, message} = await createStudent(data)
+        setLoading(false)
         if (error) {
-
+            setError(message)
+            return
         }
         history.push('/dashboard')
     }
@@ -192,11 +198,17 @@ export const AddStudent = () =>{
                         />
                     </Col>
                 </Row>
+                { error &&
+                    <Alert type='danger'>
+                        {error}
+                    </Alert>
+                }
                 <Row>
                     <Col>
-                        <Button>Criar</Button>
+                        <Button>{loading ? '...Criando' : 'Criar'}</Button>
                     </Col>
                 </Row>
+                <Link to='dashborad'>Voltar</Link>
             </S.Form>
         </S.Wrapper>
     )
