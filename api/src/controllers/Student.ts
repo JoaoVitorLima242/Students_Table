@@ -49,8 +49,6 @@ class StudentControllers {
         }
       }).save();
 
-      console.log(newStudent)
-
       try {
         res.json({ error: null, msg: 'Estudante criado com sucesso!' })
       } catch (error) {
@@ -60,6 +58,22 @@ class StudentControllers {
       return res.status(400).json(error.message)
     }
   }
+
+  public async getStudents (req: Request, res: Response): Promise<Response> {
+    try {
+      const {
+        limit=10,
+        page=0,
+        search
+      } = req.params
+
+      const data = await StudentSchema.list(Number(page), Number(limit), search)
+      return res.json({ error: null, data })
+    } catch (error) {
+      return res.status(400).json({error: true, message: error.message})
+    }
+  }
+
 }
 
 export default new StudentControllers()

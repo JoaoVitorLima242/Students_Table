@@ -1,9 +1,18 @@
-import { Schema, model } from 'mongoose'
+import { Schema, model, Model } from 'mongoose'
 
 // Types
 import { StudentInterface } from './index.d'
 
-const StudentSchema = new Schema<StudentInterface>({
+interface StudentModel extends Model<StudentInterface> {
+  list(page: any, limit: any, search: any): {
+    total: any
+    page: any
+    limit: any
+    students: StudentInterface[]
+  }
+}
+
+const StudentSchema = new Schema<StudentInterface | StudentModel>({
   name: { type: String, required: true },
   picture: { type: String, required: true },
   address: { 
@@ -20,4 +29,38 @@ const StudentSchema = new Schema<StudentInterface>({
   timestamps: true
 })
 
-export default model<StudentInterface>('Student', StudentSchema)
+StudentSchema.statics.list = function list(page: number, limit: number, search: string){
+  return new Promise(resolve => {
+    let query = {};
+
+    if (search) {
+      const searchQuery = [
+        {name: { $regex: search, $options: "i" }}
+      ];
+      query = { $or: searchQuery }
+    }
+    
+    
+    let queryPromise = this.find(query)
+      .sort({ createAt: -1 })
+      .skip(page * limit)
+      .limit(limit)
+      .exec()
+
+    this.countDocuments(query, (err, count) => {
+      queryPromise.then((students: StudentInterface) => {
+        if(!students) return resolve(null);
+        return resolve({
+        total: count,
+        page: page,
+        limit,
+        students
+        });
+      })
+    })
+  })
+}
+
+const Student: StudentModel = model<StudentInterface, StudentModel>('Student', StudentSchema)
+
+export default Student

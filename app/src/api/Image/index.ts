@@ -1,6 +1,11 @@
 import { api } from ".."
 
-export const uploadImage = async (file) => {
+type UploadResponse = {
+  error: boolean
+  imageUrl: string
+}
+
+export const uploadImage = async (file: File): Promise<UploadResponse> => {
     try {
       const form = new FormData();
 

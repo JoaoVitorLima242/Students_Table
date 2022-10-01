@@ -17,6 +17,7 @@ import * as S from './styles'
 import Placeholcer from '../../assets/images/personPlaceholder.jpeg'
 import { Link, useHistory } from 'react-router-dom'
 import Alert from '../../components/Alert'
+import { StudentDataResquest } from '../../api/Student/types'
 
 export const AddStudent = () =>{
     const {register, handleSubmit, setValue} = useForm()
@@ -26,7 +27,7 @@ export const AddStudent = () =>{
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (data: StudentDataResquest) => {
         setLoading(true)
         const {error, message} = await createStudent(data)
         setLoading(false)

@@ -26,3 +26,17 @@ export const ButtonContainer = styled.div`
         }
     }
 `
+
+export const StudentsGrid = styled.div`
+    display: grid;
+    padding-top: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-gap: 4rem;
+    width: 100%;
+    margin: 0 auto;
+`
+
+export const StudentCard = styled(Card)`
+    padding: 20px;
+    max-width: 400px;
+`
