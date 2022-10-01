@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 // Components
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { logInRequest } from '../../api/Auth'
 import { LoginData } from '../../api/Auth/types'
 import Alert from '../../components/Alert'
@@ -16,6 +16,9 @@ import * as S from './styles'
 
 const Login = () => {
     const { register, handleSubmit } = useForm()
+
+    let history = useHistory();
+
 
     const [error, setError] = useState('') 
     const [loading, setLoading] = useState(false) 
@@ -32,7 +35,7 @@ const Login = () => {
         }
         
         cookies.set('auth-token', token, {expires: 86400})
-
+        history.push('/dashboard')
     }
 
     return (

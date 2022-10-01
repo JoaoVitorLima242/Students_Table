@@ -17,3 +17,5 @@ class Cookie {
 }
 
 export default new Cookie()
+
+export const isAuthenticated = () => cookie.get('auth-token');
