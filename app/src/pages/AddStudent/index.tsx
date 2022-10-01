@@ -1,8 +1,8 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 
 // Requests
-import { AddressResponse, getAddressByCep } from '../../api/Address'
+import { getAddressByCep } from '../../api/Address'
 import Button from '../../components/Button'
 // Components
 import Col from '../../components/Col'

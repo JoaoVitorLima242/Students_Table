@@ -1,5 +1,4 @@
 import axios from "axios"
-import { api } from ".."
 
 export type AddressResponse ={
   cep: string,
