@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-
-// Components
 import { Link, useHistory } from 'react-router-dom'
+
+// Requests
 import { logInRequest } from '../../api/Auth'
 import { LoginData } from '../../api/Auth/types'
+// Components
 import Alert from '../../components/Alert'
 import Button from '../../components/Button'
 import Col from '../../components/Col'
 import Input from '../../components/Input'
 import Row from '../../components/Row'
+// Helpers
 import cookies from '../../helpers/cookies'
 // Styles
 import * as S from './styles'

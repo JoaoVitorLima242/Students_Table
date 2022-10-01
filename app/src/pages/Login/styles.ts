@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { Card } from "../../components/Card/styles";
 
 export const Wrapper = styled.main`
     ${({theme}) => css`

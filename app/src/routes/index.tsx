@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
     BrowserRouter as Router,
     Switch,
@@ -15,7 +15,7 @@ import SignUp from "../pages/SignUp";
 
 type PrivateRoutesProps = {
     component: React.ElementType
-    activeMenu
+    activeMenu: string
     exact: boolean
     path: string
 }
