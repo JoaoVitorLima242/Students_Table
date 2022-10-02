@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useHistory } from 'react-router-dom'
 
@@ -17,13 +17,17 @@ import cookies from '../../helpers/cookies'
 import * as S from './styles'
 
 const Login = () => {
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, setValue } = useForm()
 
     let history = useHistory();
 
 
     const [error, setError] = useState('') 
     const [loading, setLoading] = useState(false) 
+
+    const fieldsHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setValue(e.target.name, e.target.value)
+    }
 
     const onSubmit = async (data: LoginData) => {
         setLoading(true)
@@ -50,6 +54,8 @@ const Login = () => {
                             placeholder='Email'
                             register={register('email')}
                             type='email'
+                            onChange={fieldsHandler}
+                            name='email'
                         />
                     </Col>
                 </Row>
@@ -59,6 +65,8 @@ const Login = () => {
                             placeholder='Senha'
                             register={register('password')}
                             type='password'
+                            onChange={fieldsHandler}
+                            name='password'
                         />
                     </Col>
                 </Row>
@@ -69,7 +77,7 @@ const Login = () => {
                 }
                 <Row>
                     <Col>
-                        <Button>{loading ? '...Criando' : 'Criar'}</Button>
+                        <Button>{loading ? '...Acessando' : 'Acessar'}</Button>
                     </Col>
                 </Row>
                 <Row>

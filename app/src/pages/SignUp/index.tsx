@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 // Components
@@ -15,14 +15,20 @@ import cookies from '../../helpers/cookies'
 import * as S from './styles'
 
 const SignUp = () => {
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, setValue} = useForm()
 
     const history = useHistory()
 
     const [error, setError] = useState('') 
-    const [loading, setLoading] = useState(false) 
+    const [loading, setLoading] = useState(false)
+
+    const fieldsHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setValue(e.target.name, e.target.value)
+    }
 
     const onSubmit = async (data: RegisterData) => {
+        console.log(data)
+
         setLoading(true)
         const {message, error, token } = await registerRequest(data)
         setLoading(false)
@@ -44,6 +50,8 @@ const SignUp = () => {
                         <Input 
                             placeholder='Nome'
                             register={register('name')}
+                            onChange={fieldsHandler}
+                            name='name'
                         />
                     </Col>
                 </Row>
@@ -53,6 +61,8 @@ const SignUp = () => {
                             placeholder='Email'
                             register={register('email')}
                             type='email'
+                            onChange={fieldsHandler}
+                            name='email'
                         />
                     </Col>
                 </Row>
@@ -62,6 +72,8 @@ const SignUp = () => {
                             placeholder='Senha'
                             register={register('password')}
                             type='password'
+                            onChange={fieldsHandler}
+                            name='password'
                         />
                     </Col>
                 </Row>
@@ -71,6 +83,8 @@ const SignUp = () => {
                             placeholder='Confirmar senha'
                             register={register('confirmPassword')}
                             type='password'
+                            onChange={fieldsHandler}
+                            name='confirmPassword'
                         />
                     </Col>
                 </Row>

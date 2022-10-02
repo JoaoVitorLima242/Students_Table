@@ -24,14 +24,12 @@ type PrivateRoutesProps = {
 }
 
 const Routes = () => {
-    const isAuth = isAuthenticated()
-
     const PrivateRoute = ({ component: Component, exact, path}: PrivateRoutesProps) => (
         <Route
             exact={exact}
             path={path}
             render={(props) =>
-                isAuth ? (
+                isAuthenticated() ? (
                     <Component {...props}/>
                 ) : (
                     <Redirect
@@ -45,7 +43,7 @@ const Routes = () => {
     return (
         <Router>
             <div>
-                {isAuth && <Navbar />}
+                {isAuthenticated() && <Navbar />}
                 <Switch>
                     <PrivateRoute exact component={Dashboard} path='/dashboard'/>
                     <PrivateRoute exact component={AddStudent} path='/add-student'/>
@@ -54,7 +52,7 @@ const Routes = () => {
                     <Route path="/login" exact component={Login}/>
                     <Route path="/signup" exact component={SignUp}/>
                     <Route>
-                        <Redirect to={isAuth ? '/dashboard' : '/login'}/>
+                        <Redirect to={isAuthenticated() ? '/dashboard' : '/login'}/>
                     </Route>
                 </Switch>
             </div>
