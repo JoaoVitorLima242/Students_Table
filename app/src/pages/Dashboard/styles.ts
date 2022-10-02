@@ -89,3 +89,7 @@ export const ButtonsIconsContainer = styled.div`
         margin-left: 10px;
     }
 `
+
+export const WithoutStudent = styled.div`
+
+`

@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { FaPlus, FaMapPin, FaMapMarkedAlt, FaRegEdit, FaTrashAlt, FaEye} from 'react-icons/fa'
 
@@ -13,6 +13,7 @@ import { getStudents } from '../../api/Student'
 import { StudentData } from '../../api/Student/types'
 // Helpers
 import { maxLengthString } from '../../helpers/string'
+import Alert from '../../components/Alert'
 
 const Dashboard = () => {
     const history = useHistory()
@@ -80,7 +81,9 @@ const Dashboard = () => {
                         )
                     })
                 :
-                    <p>Voce nao tem estudantes</p>
+                    <S.WithoutStudent>
+                        <Alert>Você não tem nenhum estudante salvo. <Link to='/add-student'>Acesse o formulário para adicionar!</Link></Alert>
+                    </S.WithoutStudent>
                 }
             </S.StudentsGrid>
         </S.Wrapper>
