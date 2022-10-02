@@ -45,7 +45,22 @@ export const UpdateStudent = () =>{
             
             if (error) history.goBack()
 
-            setValue('picture', data.picture)
+            const {
+                picture,
+                name,
+                address
+            } = data
+
+            setValue('name', name)
+            setValue('picture', picture)
+            setValue('cep', address.cep)
+            setValue('city', address.city)
+            setValue('uf', address.uf)
+            setValue('street', address.street)
+            setValue('distric', address.distric)
+            setValue('complement', address.complement)
+            setValue('houseNr', address.houseNr)
+
             setStudent(data)
         }
 
@@ -60,14 +75,14 @@ export const UpdateStudent = () =>{
             setError(message)
             return
         }
-        // history.push('/dashboard')
-        console.log(data)
+        history.push('/dashboard')
     }
 
     const pictureInputHandler = async (e: ChangeEvent<HTMLInputElement>) => {
         const {imageUrl} = await uploadImage(e.target.files[0])
         setImage(imageUrl)
         setValue('picture', imageUrl)
+    
     }   
 
     const fieldsHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -121,8 +136,6 @@ export const UpdateStudent = () =>{
 
     const {
         picture,
-        name,
-        address
     } = student || {}
 
     return(
@@ -146,7 +159,7 @@ export const UpdateStudent = () =>{
                         </S.ImageContent>
                         <Row>
                             <Col>
-                                <Label>Foto</Label>
+                                <Label required>Foto</Label>
                                 <Input 
                                     type='file'
                                     onChange={pictureInputHandler}
@@ -156,47 +169,43 @@ export const UpdateStudent = () =>{
                         </Row>
                         <Row>
                             <Col>
-                                <Label>Nome</Label>
+                                <Label required>Nome</Label>
                                 <Input 
                                     placeholder='Nome do estudante'
                                     name='name'
                                     register={register('name')}
                                     onChange={fieldsHandler}
-                                    defaultValue={name}
                                 />
                             </Col>
                         </Row>
                         <hr/>
                         <Row>
                             <Col>
-                                <Label>CEP</Label>
+                                <Label required>CEP</Label>
                                 <Input 
                                     onChange={CEPHandler} 
                                     register={register('cep')}
                                     placeholder='00000-000'
-                                    defaultValue={address.cep}
                                 />
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                <Label>Cidade</Label>
+                                <Label required>Cidade</Label>
                                 <Input 
                                     name='uf'
                                     onChange={fieldsHandler}
                                     register={register('city')}
                                     placeholder='Cidade' 
-                                    defaultValue={address.city}
                                 />
                             </Col>
                             <Col>
-                                <Label>Estado</Label>
+                                <Label required>Estado</Label>
                                 <Select 
                                     name='uf'
                                     onChange={fieldsHandler}
                                     register={register('uf')}
                                     placeholder='Estado'
-                                    defaultValue={address.uf}
                                 >
                                     <option value=''>--Estado---</option>
                                     {UFs.map(uf => (
@@ -207,39 +216,36 @@ export const UpdateStudent = () =>{
                         </Row>
                         <Row>
                             <Col>
-                                <Label>Rua</Label>
+                                <Label required>Rua</Label>
                                 <Input
                                     name='street'
                                     onChange={fieldsHandler}
                                     placeholder='Rua'
-                                    register={register('houseNr')}
-                                    defaultValue={address.houseNr}
+                                    register={register('street')}
 
                                 />
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                <Label>Bairro</Label>
+                                <Label required>Bairro</Label>
                                 <Input 
                                     name='distric'
                                     register={register('distric')}
                                     onChange={fieldsHandler}
                                     placeholder='Bairro'
-                                    defaultValue={address.distric}
 
                                 />
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                <Label>Número</Label>
+                                <Label required>Número</Label>
                                 <Input 
                                     placeholder='Número'
                                     name='houseNr'
                                     register={register('houseNr')}
                                     onChange={fieldsHandler}
-                                    defaultValue={address.houseNr}
                                 />
                             </Col>
                             <Col>
@@ -249,7 +255,6 @@ export const UpdateStudent = () =>{
                                     register={register('complement')}
                                     onChange={fieldsHandler}
                                     placeholder='Complemento'
-                                    defaultValue={address.complement}
                                 />
                             </Col>
                         </Row>

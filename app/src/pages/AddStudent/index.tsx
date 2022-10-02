@@ -112,7 +112,7 @@ export const AddStudent = () =>{
                 </S.ImageContent>
                 <Row>
                     <Col>
-                        <Label>Foto</Label>
+                        <Label required>Foto</Label>
                         <Input 
                             type='file'
                             onChange={pictureInputHandler}
@@ -122,7 +122,7 @@ export const AddStudent = () =>{
                 </Row>
                 <Row>
                     <Col>
-                        <Label>Nome</Label>
+                        <Label required>Nome</Label>
                         <Input 
                             placeholder='Nome do estudante'
                             name='name'
@@ -134,7 +134,7 @@ export const AddStudent = () =>{
                 <hr/>
                 <Row>
                     <Col>
-                        <Label>CEP</Label>
+                        <Label required>CEP</Label>
                         <Input 
                             onChange={CEPHandler} 
                             register={register('cep')}
@@ -144,7 +144,7 @@ export const AddStudent = () =>{
                 </Row>
                 <Row>
                     <Col>
-                        <Label>Cidade</Label>
+                        <Label required>Cidade</Label>
                         <Input 
                             name='uf'
                             onChange={fieldsHandler}
@@ -153,7 +153,7 @@ export const AddStudent = () =>{
                         />
                     </Col>
                     <Col>
-                        <Label>Estado</Label>
+                        <Label required>Estado</Label>
                         <Select 
                             name='uf'
                             onChange={fieldsHandler}
@@ -169,7 +169,7 @@ export const AddStudent = () =>{
                 </Row>
                 <Row>
                     <Col>
-                        <Label>Rua</Label>
+                        <Label required>Rua</Label>
                         <Input
                             name='street'
                             onChange={fieldsHandler}
@@ -180,7 +180,7 @@ export const AddStudent = () =>{
                 </Row>
                 <Row>
                     <Col>
-                        <Label>Bairro</Label>
+                        <Label required>Bairro</Label>
                         <Input 
                             name='distric'
                             register={register('distric')}
@@ -191,7 +191,7 @@ export const AddStudent = () =>{
                 </Row>
                 <Row>
                     <Col>
-                        <Label>Número</Label>
+                        <Label required>Número</Label>
                         <Input 
                             placeholder='Número'
                             name='houseNr'

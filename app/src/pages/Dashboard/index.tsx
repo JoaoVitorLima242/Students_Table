@@ -27,6 +27,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchStudents = async () => {
             const response = await getStudents(page, limit, search)
+            console.log(response.students)
             setPage(response.page)
             setLimit(response.limit)
             setTotal(response.total)
@@ -58,7 +59,7 @@ const Dashboard = () => {
                 </S.ButtonContainer>
             </S.Interaction>
             <S.StudentsGrid>
-                {students && students.length > 0 ?
+                {!!students && students?.length > 0 ?
                     students.map(({picture, name, address, _id}) => {
                         return (
                             <S.StudentCard key={_id}>
@@ -68,8 +69,8 @@ const Dashboard = () => {
                                 <S.Infos>
                                     <h4>{name}</h4>
                                     <S.InfoWithIcon>
-                                        <p><FaMapPin/><span>{maxLengthString(strMaxLength,address.street)} | {address.houseNr} {address.complement && `| ${address.complement}`} </span></p>
-                                        <p><FaMapMarkedAlt/><span>{maxLengthString(strMaxLength,address.city)} |  {address.uf}</span></p>
+                                        <p><FaMapPin/><span>{maxLengthString(strMaxLength,address?.street)} | {address.houseNr} {address.complement && `| ${address.complement}`} </span></p>
+                                        <p><FaMapMarkedAlt/><span>{maxLengthString(strMaxLength,address?.city)} |  {address.uf}</span></p>
                                     </S.InfoWithIcon>
                                     <S.ButtonsIconsContainer>
                                         <ButtonIcon onClick={() => goTo(`/student?studentId=${_id}`)}><FaEye/></ButtonIcon>

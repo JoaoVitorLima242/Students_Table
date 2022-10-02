@@ -110,6 +110,10 @@ class StudentControllers {
       res.status(400).json({error: true, message: 'Estudante não encontrado!'})
     }
 
+    if (name === undefined || city === undefined || street === undefined || houseNr === undefined || uf === undefined || distric === undefined || picture === undefined) {
+      return res.status(400).json({ error:true, message:'Campos obrigatórios vázios.' })
+    }
+
     const student = {
       name: name && name,
       picture,

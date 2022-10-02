@@ -1,12 +1,16 @@
 import React from 'react'
-import { StyledLabel } from './styles'
+import { RequiredStar, StyledLabel } from './styles'
 
 type LabelProps = {
     children: React.ReactNode
+    required?: boolean
 }
 
-const Label = ({ children }: LabelProps) => {
-  return <StyledLabel>{children}</StyledLabel>
+const Label = ({ children, required }: LabelProps) => {
+  return <StyledLabel>
+      {children}
+      {required && <RequiredStar>*</RequiredStar>}
+    </StyledLabel>
 }
 
 export default Label
