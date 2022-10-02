@@ -131,9 +131,22 @@ class StudentControllers {
 
     try {
       const updateStudent = await StudentSchema.findOneAndUpdate({ _id: studentInstace._id }, {$set: student}, {new: true})
-      return res.json({ error: null })
+      return res.json({ error: null, message: 'Estudante criado com sucesso!' })
     } catch (error) {
       res.status(400).json(error)
+    }
+  }
+
+  public async deleteStudent (req: Request, res: Response): Promise<Response> {
+    const {
+      id
+    } = req.params
+
+    try {
+      await StudentSchema.deleteOne({ _id: id })
+      return res.json({ error: null, message: 'Estudante removido com sucesso!' })
+    } catch (error) {
+      return res.status(400).json({error: true, message: error.message})
     }
   }
 

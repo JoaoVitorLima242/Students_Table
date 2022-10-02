@@ -43,3 +43,13 @@ export const getStudentById = async (id: string): Promise<getStudentByIdType> =>
     return error.response.data
   }
 }
+
+export const deleteStudent = async (id: string): Promise<PostRequest> => {
+  try {
+    const response = await api.delete(`/api/admin/student/${id}`)
+    return response.data
+  } catch (error) {
+    return error.response.data
+  }
+}
+

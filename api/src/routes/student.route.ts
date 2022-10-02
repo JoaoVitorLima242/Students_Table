@@ -7,5 +7,6 @@ routes.post('/', StudentControllers.createStudent)
 routes.get('/', StudentControllers.getStudents)
 routes.get('/:id', StudentControllers.getStudentById)
 routes.put('/:id', StudentControllers.updateUser)
+routes.delete('/:id', StudentControllers.deleteStudent)
 
 export default routes

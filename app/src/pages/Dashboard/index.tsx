@@ -9,7 +9,7 @@ import Search from '../../components/Search'
 import Button from '../../components/Button'
 import ButtonIcon from '../../components/ButtonIcon'
 // Requests
-import { getStudents } from '../../api/Student'
+import { deleteStudent, getStudents } from '../../api/Student'
 import { StudentData } from '../../api/Student/types'
 // Helpers
 import { maxLengthString } from '../../helpers/string'
@@ -24,22 +24,43 @@ const Dashboard = () => {
     const [limit, setLimit] = useState(10)
     const [search, setSearch] = useState('')
     const [students, setStudents] = useState<StudentData[]>([])
+    const [deleteStudentId, setDeleteStudentId] = useState('')
+    const [modal, setModal] = useState(false)
+    
 
     useEffect(() => {
-        const fetchStudents = async () => {
-            const response = await getStudents(page, limit, search)
-            console.log(response.students)
-            setPage(response.page)
-            setLimit(response.limit)
-            setTotal(response.total)
-            setStudents(response.students)
-        }
-
         fetchStudents()
-    },[page, limit, search])
+    },[search])
+
+    const fetchStudents = async () => {
+        const response = await getStudents(page, limit, search)
+        console.log(response.students)
+        setPage(response.page)
+        setLimit(response.limit)
+        setTotal(response.total)
+        setStudents(response.students)
+    }
 
     const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
+    }
+
+    const modalHandler = () => {
+        setModal(!modal)
+    }
+
+    const selectStudentToDelete = (id: string) => {
+        setDeleteStudentId(id)
+        modalHandler()
+    }
+
+    const deleteStudentHandler = async () => {
+        const {message, error } = await deleteStudent(deleteStudentId)
+        if (error) {
+            alert(message)
+        }
+        fetchStudents()
+        modalHandler()
     }
 
     const goTo = (path: string) => history.push(path)
@@ -76,7 +97,7 @@ const Dashboard = () => {
                                     <S.ButtonsIconsContainer>
                                         <ButtonIcon onClick={() => goTo(`/student?studentId=${_id}`)}><FaEye/></ButtonIcon>
                                         <ButtonIcon onClick={() => goTo(`/student/edit?studentId=${_id}`)} color='green'><FaRegEdit/></ButtonIcon>
-                                        <ButtonIcon color='red'><FaTrashAlt/></ButtonIcon>
+                                        <ButtonIcon onClick={() => selectStudentToDelete(_id)} color='red'><FaTrashAlt/></ButtonIcon>
                                     </S.ButtonsIconsContainer>
                                 </S.Infos>
                             </S.StudentCard>
@@ -89,8 +110,9 @@ const Dashboard = () => {
                 }
             </S.StudentsGrid>
             <ConfirmDeleteModal 
-                isOpen={true}
-                modalHandler={true}
+                isOpen={modal}
+                onClose={modalHandler}
+                onConfirm={deleteStudentHandler}
             />
         </S.Wrapper>
     )
