@@ -1,7 +1,16 @@
-import styled, { css } from "styled-components";
+import styled, { css, DefaultTheme } from "styled-components";
+
+const wrapperModifiers = {
+    red: (theme: DefaultTheme) => css`
+        background: ${theme.colors.red.primary};
+    `,
+    green: (theme: DefaultTheme) => css`
+        background: ${theme.colors.green.primary};
+    `
+}
 
 export const Button = styled.button`
-    ${({theme}) => css`
+    ${({theme, color}) => css`
         background: ${theme.colors.purple.primary};
         background-size: 210% 210%;
         background-position: 100% 0;
@@ -13,5 +22,7 @@ export const Button = styled.button`
         border: none;
         padding: 11px 40px;
         width: 100%;
+
+        ${!!color && wrapperModifiers[color](theme)}
     `}
 `

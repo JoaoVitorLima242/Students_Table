@@ -14,6 +14,7 @@ import { StudentData } from '../../api/Student/types'
 // Helpers
 import { maxLengthString } from '../../helpers/string'
 import Alert from '../../components/Alert'
+import ConfirmDeleteModal from '../../components/Modals/ConfirmDelete'
 
 const Dashboard = () => {
     const history = useHistory()
@@ -87,6 +88,10 @@ const Dashboard = () => {
                     </S.WithoutStudent>
                 }
             </S.StudentsGrid>
+            <ConfirmDeleteModal 
+                isOpen={true}
+                modalHandler={true}
+            />
         </S.Wrapper>
     )
 }

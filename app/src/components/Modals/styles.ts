@@ -45,7 +45,7 @@ export const ModalContent = styled.div.attrs(() => ({
       background: #FFFFFF;
       border-radius: 16px;
       border: none;
-      padding: 18px 50px 30px;
+      padding: 18px 40px 30px;
       width: 100%;
       position: relative;
       z-index: 999;
@@ -59,15 +59,17 @@ export const ModalHeader = styled.div.attrs(() => ({
 `
 
 export const CloseButton = styled.button`
-    width: 30px;
-    height: 30px;
-    position: relative;
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
     border: none;
     background-color: transparent;
     margin-left: auto;
+    opacity: 0.8;
 
     :hover {
-      opacity: 0.8;
+      opacity: 0.6;
       transition: ease-in-out 50ms all;
     }
 `
