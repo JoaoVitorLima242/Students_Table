@@ -16,6 +16,7 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import StudentDetails from "../pages/StudentDetails";
 import { UpdateStudent } from "../pages/UpdateStudent";
+import UserConfig from "../pages/userConfig";
 
 type PrivateRoutesProps = {
     component: React.ElementType
@@ -46,6 +47,7 @@ const Routes = () => {
                 {isAuthenticated() && <Navbar />}
                 <Switch>
                     <PrivateRoute exact component={Dashboard} path='/dashboard'/>
+                    <PrivateRoute exact component={UserConfig} path='/config'/>
                     <PrivateRoute exact component={AddStudent} path='/add-student'/>
                     <PrivateRoute exact component={UpdateStudent} path='/student/edit'/>
                     <PrivateRoute exact component={StudentDetails} path='/student'/>

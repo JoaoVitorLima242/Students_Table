@@ -44,7 +44,7 @@ class UserControllers {
 
 
     if (user._id.toString() !== id) {
-      return res.status(401).json({ error: 'Acesso negado!' })
+      return res.status(401).json({ error:true , message:'Acesso negado!' })
     }
 
     const updateUser: UpdateUser = {
@@ -54,7 +54,7 @@ class UserControllers {
     }
 
     if (password !== confirmPassword) {
-      return res.status(401).json({ error: 'As senhas não conferem!' })
+      return res.status(401).json({error:true , message:'As senhas não conferem!' })
     } 
     
     if (password === confirmPassword && !password && password === '') {

@@ -20,10 +20,15 @@ export const LogoContainer = styled.div`
 
 export const OptionsSection = styled.div`
     display: flex;
+    align-items: center;
     margin-left: auto;
     margin-right: 40px;
     font-size: 30px;
     opacity: 0.8;
+
+    h4 {
+        margin: 0;
+    }
     div {
         margin: 0 10px;
         cursor: pointer;

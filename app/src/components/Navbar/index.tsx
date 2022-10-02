@@ -1,12 +1,13 @@
+import { useEffect, useState } from 'react'
 import { FaCog, FaSignOutAlt } from 'react-icons/fa'
+import { useHistory, useLocation } from 'react-router-dom'
 
 // Styles
 import * as S from './styles'
 // Images
 import Logo from '../../assets/images/myLogo.png'
+// Helpers
 import cookies, { isAuthenticated } from '../../helpers/cookies'
-import { useHistory, useLocation } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 
 const Navbar = () => {
     const history= useHistory()
@@ -23,15 +24,17 @@ const Navbar = () => {
         setIsAuth(isAuthenticated())
     }, [location])
 
+    const goTo = (path: string) => history.push(path)
+
     if (!(!!isAuth)) return null
 
     return (
         <S.Wrapper>
-            <S.LogoContainer>
+            <S.LogoContainer onClick={() => goTo('/dashboard')}>
                 <img src={Logo} alt='A mountain with a group of people inside. Next to is write Good Dashboard'/>
             </S.LogoContainer>
                 <S.OptionsSection>
-                    <div><FaCog /></div>
+                    <div onClick={() => goTo('/config')}><FaCog /></div>
                     <div onClick={logOutHandler}><FaSignOutAlt /></div>
                 </S.OptionsSection>
         </S.Wrapper>
