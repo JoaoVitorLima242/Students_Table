@@ -15,6 +15,7 @@ import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import StudentDetails from "../pages/StudentDetails";
+import { UpdateStudent } from "../pages/UpdateStudent";
 
 type PrivateRoutesProps = {
     component: React.ElementType
@@ -48,7 +49,8 @@ const Routes = () => {
                 <Switch>
                     <PrivateRoute exact component={Dashboard} path='/dashboard'/>
                     <PrivateRoute exact component={AddStudent} path='/add-student'/>
-                    <PrivateRoute exact component={StudentDetails} path='/student/:id'/>
+                    <PrivateRoute exact component={UpdateStudent} path='/student/edit'/>
+                    <PrivateRoute exact component={StudentDetails} path='/student'/>
                     <Route path="/login" exact component={Login}/>
                     <Route path="/signup" exact component={SignUp}/>
                     <Route>

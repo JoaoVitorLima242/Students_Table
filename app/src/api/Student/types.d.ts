@@ -24,4 +24,5 @@ export type getStudents = {
 
 export type getStudentById = {
     data: StudentData
+    error: boolean
 }

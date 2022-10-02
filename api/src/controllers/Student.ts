@@ -81,6 +81,10 @@ class StudentControllers {
       } = req.params
 
       const data = await StudentSchema.findOne({_id: id})
+      if (!data) {
+        res.status(400).json({error: true, message: 'Estudante não encontrado!'})
+      }
+
       return res.json({ error: null, data })
     } catch (error) {
       return res.status(400).json({error: true, message: error.message})

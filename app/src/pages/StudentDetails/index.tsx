@@ -15,22 +15,27 @@ import Loading from '../../components/Loading'
 import Row from '../../components/Row'
 // Styles
 import * as S from './styles'
+import { useQuery } from '../../helpers/query';
 
 const StudentDetails = () => {
-    const location = useLocation()
+    const query = useQuery();
+
     const history = useHistory()
 
     const [student, setStudent] = useState<StudentData>(null)
 
     useEffect(() => {
-        const userId = location.pathname.slice(9)
+        const studentId = query.get('studentId') 
         
         const fetchStudent = async (id: string) => {
-            const {data} = await getStudentById(id)
+            const {data, error} = await getStudentById(id)
+            
+            if (error) history.goBack()
+
             setStudent(data)
         }
 
-        fetchStudent(userId)
+        fetchStudent(studentId)
     }, [])
 
     const goBackHandler = () => {
@@ -94,11 +99,11 @@ const StudentDetails = () => {
                                 <Row>
                                     <Col>
                                         <Label>Foi adicionado:</Label>
-                                        <p>{moment(createdAt).tz('America/Sao_Paulo').format('DD/MM/YYYY HH:MM').toString()}</p>
+                                        <p>{moment(createdAt).tz('America/Sao_Paulo').format('DD/MM/YYYY HH:mm').toString()}</p>
                                     </Col>
                                     <Col>
                                         <Label>Ultima atualização:</Label>
-                                        <p>{moment(updatedAt).tz('America/Sao_Paulo').format('DD/MM/YYYY HH:MM').toString()}</p>
+                                        <p>{moment(updatedAt).tz('America/Sao_Paulo').format('DD/MM/YYYY HH:mm').toString()}</p>
                                     </Col>
                                 </Row>
                             </S.AddressInfo>

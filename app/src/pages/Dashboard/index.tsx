@@ -72,7 +72,7 @@ const Dashboard = () => {
                                         <p><FaMapMarkedAlt/><span>{maxLengthString(strMaxLength,address.city)} |  {address.uf}</span></p>
                                     </S.InfoWithIcon>
                                     <S.ButtonsIconsContainer>
-                                        <ButtonIcon onClick={() => goTo(`/student/${_id}`)}><FaEye/></ButtonIcon>
+                                        <ButtonIcon onClick={() => goTo(`/student?studentId=${_id}`)}><FaEye/></ButtonIcon>
                                         <ButtonIcon color='green'><FaRegEdit/></ButtonIcon>
                                         <ButtonIcon color='red'><FaTrashAlt/></ButtonIcon>
                                     </S.ButtonsIconsContainer>
