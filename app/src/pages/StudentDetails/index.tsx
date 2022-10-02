@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
+import 'moment-timezone';
+import moment from 'moment'
 import {FaArrowLeft} from 'react-icons/fa'
 
 // Request
@@ -39,7 +41,8 @@ const StudentDetails = () => {
         picture,
         name,
         address,
-        createdAt
+        createdAt,
+        updatedAt
     } = student || {}
     
     return (
@@ -72,7 +75,6 @@ const StudentDetails = () => {
                                         <p>{address.cep}</p>
                                     </Col>
                                 </Row>
-
                                 <Row>
                                     <Col>
                                         <Label>Rua</Label>
@@ -87,6 +89,16 @@ const StudentDetails = () => {
                                     <Col>
                                         <Label>Complemento</Label>
                                         <p>{address.complement}</p>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <Label>Foi adicionado:</Label>
+                                        <p>{moment(createdAt).tz('America/Sao_Paulo').format('DD/MM/YYYY HH:MM').toString()}</p>
+                                    </Col>
+                                    <Col>
+                                        <Label>Ultima atualização:</Label>
+                                        <p>{moment(updatedAt).tz('America/Sao_Paulo').format('DD/MM/YYYY HH:MM').toString()}</p>
                                     </Col>
                                 </Row>
                             </S.AddressInfo>

@@ -12,7 +12,7 @@ export type StudentData = {
         cep: string   
     };
     createdAt: Date,
-    updateAt: Date,
+    updatedAt: Date,
 }
 
 export type getStudents = {
