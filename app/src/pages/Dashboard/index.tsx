@@ -37,7 +37,7 @@ const Dashboard = () => {
 
     const goTo = (path: string) => history.push(path)
 
-    const strMaxLength = 16
+    const strMaxLength = 12
 
     return (
         <S.Wrapper>

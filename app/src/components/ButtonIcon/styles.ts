@@ -20,7 +20,8 @@ export const Button = styled.button<StyledButtonProps>`
         color: ${theme.colors.purple.primary};
         background-color: ${theme.colors.purple.secondary};
         border-radius: 50%;
-        padding: 10px;
+        width: 40px;
+        height: 40px;
         border: none;
 
         ${!!color && wrapperModifiers[color](theme)}

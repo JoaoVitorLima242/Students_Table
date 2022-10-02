@@ -38,6 +38,7 @@ export const StudentsGrid = styled.div`
 
 export const StudentCard = styled(Card)`
     padding: 20px;    
+    position: relative;
 
     display: flex;
     flex-direction: row;
@@ -76,4 +77,11 @@ export const InfoWithIcon = styled.div`
 
 export const ButtonsIconsContainer = styled.div`
     display: flex;
+    position: relative;
+    justify-content: flex-end;
+    padding-top: 10px;
+
+    button {
+        margin-left: 10px;
+    }
 `
