@@ -1,30 +1,35 @@
 import { ChangeEvent, useEffect, useState } from 'react'
+import { FaArrowLeft } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
+import { Link, useHistory } from 'react-router-dom'
 
 // Requests
 import { getAddressByCep } from '../../api/Address'
 import { uploadImage } from '../../api/Image'
-import { createStudent, getStudentById } from '../../api/Student'
-import Button from '../../components/Button'
+import { getStudentById, updateStudent } from '../../api/Student'
+// Types
+import { StudentData } from '../../api/Student/types'
 // Components
+import Button from '../../components/Button'
 import Col from '../../components/Col'
 import Input from '../../components/Input'
 import Label from '../../components/Label'
 import Row from '../../components/Row'
 import Select from '../../components/Select'
+import Alert from '../../components/Alert'
+import ButtonIcon from '../../components/ButtonIcon'
 // Styles
 import * as S from './styles'
+// Assets
 import Placeholcer from '../../assets/images/personPlaceholder.jpeg'
-import { Link, useHistory, useLocation } from 'react-router-dom'
-import Alert from '../../components/Alert'
-import { StudentData } from '../../api/Student/types'
-import ButtonIcon from '../../components/ButtonIcon'
-import { FaArrowLeft } from 'react-icons/fa'
+// Helpers
+import { useQuery } from '../../helpers/query'
+import Loading from '../../components/Loading'
 
 export const UpdateStudent = () =>{
     const {register, handleSubmit, setValue} = useForm()
     const history = useHistory()
-    const location = useLocation()
+    const query = useQuery()
 
     const [image, setImage] = useState('')
     const [error, setError] = useState('')
@@ -33,28 +38,30 @@ export const UpdateStudent = () =>{
     const [student, setStudent] = useState<StudentData>(null)
 
     useEffect(() => {
-        const userId = location.pathname.slice(9)
+        const studentId = query.get('studentId') 
         
         const fetchStudent = async (id: string) => {
             const {data, error} = await getStudentById(id)
             
             if (error) history.goBack()
 
+            setValue('picture', data.picture)
             setStudent(data)
         }
 
-        fetchStudent(userId)
+        fetchStudent(studentId)
     }, [])
 
     const onSubmit = async (data: StudentData) => {
         setLoading(true)
-        const {error, message} = await createStudent(data)
+        const {error, message} = await updateStudent(student._id ,data)
         setLoading(false)
         if (error) {
             setError(message)
             return
         }
-        history.push('/dashboard')
+        // history.push('/dashboard')
+        console.log(data)
     }
 
     const pictureInputHandler = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -112,131 +119,157 @@ export const UpdateStudent = () =>{
     'TO',
     ]
 
+    const {
+        picture,
+        name,
+        address
+    } = student || {}
+
     return(
         <S.Wrapper>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <ButtonIcon onClick={goBackHandler}><FaArrowLeft/></ButtonIcon>
-                </div>
-                <Row>
-                    <Col>
-                        <h2>Adicione um estudante!</h2>
-                        <p>Complete todos os campos do formulário para criar.</p>
-                    </Col>
-                </Row>
-                <S.ImageContent>
-                    <img src={image || Placeholcer} alt='Estudante'/>
-                </S.ImageContent>
-                <Row>
-                    <Col>
-                        <Label>Foto</Label>
-                        <Input 
-                            type='file'
-                            onChange={pictureInputHandler}
-                            name='picture'
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Label>Nome</Label>
-                        <Input 
-                            placeholder='Nome do estudante'
-                            name='name'
-                            register={register('name')}
-                            onChange={fieldsHandler}
-                        />
-                    </Col>
-                </Row>
-                <hr/>
-                <Row>
-                    <Col>
-                        <Label>CEP</Label>
-                        <Input 
-                            onChange={CEPHandler} 
-                            register={register('cep')}
-                            placeholder='00000-000'
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Label>Cidade</Label>
-                        <Input 
-                            name='uf'
-                            onChange={fieldsHandler}
-                            register={register('city')}
-                            placeholder='Cidade' 
-                        />
-                    </Col>
-                    <Col>
-                        <Label>Estado</Label>
-                        <Select 
-                            name='uf'
-                            onChange={fieldsHandler}
-                            register={register('uf')}
-                            placeholder='Estado'
-                        >
-                             <option value=''>--Estado---</option>
-                            {UFs.map(uf => (
-                                <option key={uf} value={uf}>{uf}</option>
-                            ))}
-                        </Select>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Label>Rua</Label>
-                        <Input
-                            name='street'
-                            onChange={fieldsHandler}
-                            placeholder='Rua'
-                            register={register('street')}
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Label>Bairro</Label>
-                        <Input 
-                            name='distric'
-                            register={register('distric')}
-                            onChange={fieldsHandler}
-                            placeholder='Bairro'
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Label>Número</Label>
-                        <Input 
-                            placeholder='Número'
-                            name='houseNr'
-                            register={register('houseNr')}
-                            onChange={fieldsHandler}
-                        />
-                    </Col>
-                    <Col>
-                        <Label>Complemento</Label>
-                        <Input  
-                            name='complement'
-                            register={register('complement')}
-                            onChange={fieldsHandler}
-                            placeholder='Complemento'
-                        />
-                    </Col>
-                </Row>
-                { error &&
-                    <Alert type='danger'>
-                        {error}
-                    </Alert>
+            {
+                student ?
+                    <>
+                    
+                        <div>
+                            <ButtonIcon onClick={goBackHandler}><FaArrowLeft/></ButtonIcon>
+                        </div>
+                        <Row>
+                            <Col>
+                                <h2>Edite o estudante!</h2>
+                                <p>Modifique os campos abaixo para editar</p>
+                            </Col>
+                        </Row>
+                        <S.ImageContent>
+                            <img src={image || picture} alt='Estudante'/>
+                        </S.ImageContent>
+                        <Row>
+                            <Col>
+                                <Label>Foto</Label>
+                                <Input 
+                                    type='file'
+                                    onChange={pictureInputHandler}
+                                    name='picture'
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Label>Nome</Label>
+                                <Input 
+                                    placeholder='Nome do estudante'
+                                    name='name'
+                                    register={register('name')}
+                                    onChange={fieldsHandler}
+                                    defaultValue={name}
+                                />
+                            </Col>
+                        </Row>
+                        <hr/>
+                        <Row>
+                            <Col>
+                                <Label>CEP</Label>
+                                <Input 
+                                    onChange={CEPHandler} 
+                                    register={register('cep')}
+                                    placeholder='00000-000'
+                                    defaultValue={address.cep}
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Label>Cidade</Label>
+                                <Input 
+                                    name='uf'
+                                    onChange={fieldsHandler}
+                                    register={register('city')}
+                                    placeholder='Cidade' 
+                                    defaultValue={address.city}
+                                />
+                            </Col>
+                            <Col>
+                                <Label>Estado</Label>
+                                <Select 
+                                    name='uf'
+                                    onChange={fieldsHandler}
+                                    register={register('uf')}
+                                    placeholder='Estado'
+                                    defaultValue={address.uf}
+                                >
+                                    <option value=''>--Estado---</option>
+                                    {UFs.map(uf => (
+                                        <option key={uf} value={uf}>{uf}</option>
+                                    ))}
+                                </Select>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Label>Rua</Label>
+                                <Input
+                                    name='street'
+                                    onChange={fieldsHandler}
+                                    placeholder='Rua'
+                                    register={register('houseNr')}
+                                    defaultValue={address.houseNr}
+
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Label>Bairro</Label>
+                                <Input 
+                                    name='distric'
+                                    register={register('distric')}
+                                    onChange={fieldsHandler}
+                                    placeholder='Bairro'
+                                    defaultValue={address.distric}
+
+                                />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Label>Número</Label>
+                                <Input 
+                                    placeholder='Número'
+                                    name='houseNr'
+                                    register={register('houseNr')}
+                                    onChange={fieldsHandler}
+                                    defaultValue={address.houseNr}
+                                />
+                            </Col>
+                            <Col>
+                                <Label>Complemento</Label>
+                                <Input  
+                                    name='complement'
+                                    register={register('complement')}
+                                    onChange={fieldsHandler}
+                                    placeholder='Complemento'
+                                    defaultValue={address.complement}
+                                />
+                            </Col>
+                        </Row>
+                        { error &&
+                            <Alert type='danger'>
+                                {error}
+                            </Alert>
+                        }
+                        <Row>
+                            <Col>
+                                <Button>{loading ? '...Editando' : 'Editar'}</Button>
+                            </Col>
+                        </Row>
+                        <Link to='dashborad'>Voltar</Link>
+                    </>
+                    : 
+                    <S.Loading>
+                        <Loading/>
+                    </S.Loading>
                 }
-                <Row>
-                    <Col>
-                        <Button>{loading ? '...Criando' : 'Criar'}</Button>
-                    </Col>
-                </Row>
-                <Link to='dashborad'>Voltar</Link>
             </S.Form>
         </S.Wrapper>
     )

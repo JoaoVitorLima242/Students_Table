@@ -91,6 +91,48 @@ class StudentControllers {
     }
   }
 
+  public async updateUser (req: Request, res: Response): Promise<Response> {
+    const {
+      name,
+      picture,
+      city,
+      street,
+      houseNr,
+      uf,
+      distric,
+      complement,
+      cep
+    }: StudentRequest = req.body
+
+    const studentInstace = await StudentSchema.findOne({_id: req.params.id})
+
+    if (!studentInstace) {
+      res.status(400).json({error: true, message: 'Estudante não encontrado!'})
+    }
+
+    const student = {
+      name: name && name,
+      picture,
+      address: {
+        city,
+        street,
+        houseNr,
+        uf,
+        distric,
+        complement,
+        cep
+      }
+    }
+
+
+    try {
+      const updateStudent = await StudentSchema.findOneAndUpdate({ _id: studentInstace._id }, {$set: student}, {new: true})
+      return res.json({ error: null })
+    } catch (error) {
+      res.status(400).json(error)
+    }
+  }
+
 }
 
 export default new StudentControllers()

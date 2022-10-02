@@ -17,6 +17,15 @@ export const createStudent = async (data: StudentData): Promise<PostRequest> => 
   }
 }
 
+export const updateStudent = async (id: string, data: StudentData): Promise<PostRequest> => {
+  try {
+    const response = await api.put(`/api/admin/student/${id}`, data)
+    return response.data
+  } catch (error) {
+    return error.response.data
+  }
+}
+
 export const getStudents = async (page, limit, search): Promise<getStudentsType> => {
   try {
     const response = await api.get(`/api/admin/student?page=${page}&limit=${limit}&search=${search}`)

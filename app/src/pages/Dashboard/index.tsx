@@ -73,7 +73,7 @@ const Dashboard = () => {
                                     </S.InfoWithIcon>
                                     <S.ButtonsIconsContainer>
                                         <ButtonIcon onClick={() => goTo(`/student?studentId=${_id}`)}><FaEye/></ButtonIcon>
-                                        <ButtonIcon color='green'><FaRegEdit/></ButtonIcon>
+                                        <ButtonIcon onClick={() => goTo(`/student/edit?studentId=${_id}`)} color='green'><FaRegEdit/></ButtonIcon>
                                         <ButtonIcon color='red'><FaTrashAlt/></ButtonIcon>
                                     </S.ButtonsIconsContainer>
                                 </S.Infos>
