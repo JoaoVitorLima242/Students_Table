@@ -3,7 +3,7 @@ import cookies from "../helpers/cookies"
 
 const apiConfig = () => {
     const api = axios.create({
-        baseURL: 'http://localhost:3001'
+        baseURL: process.env.REACT_APP_API_URL
     })
 
     api.defaults.headers.post['Content-Type'] = 'application/json'
