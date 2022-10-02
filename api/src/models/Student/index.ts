@@ -4,10 +4,10 @@ import { Schema, model, Model } from 'mongoose'
 import { StudentInterface } from './index.d'
 
 interface StudentModel extends Model<StudentInterface> {
-  list(page: any, limit: any, search: any): {
-    total: any
-    page: any
-    limit: any
+  list(page: number, limit: number, search: string): {
+    total: number
+    page: number
+    limit: number
     students: StudentInterface[]
   }
 }

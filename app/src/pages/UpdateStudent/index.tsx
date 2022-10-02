@@ -20,8 +20,6 @@ import Alert from '../../components/Alert'
 import ButtonIcon from '../../components/ButtonIcon'
 // Styles
 import * as S from './styles'
-// Assets
-import Placeholcer from '../../assets/images/personPlaceholder.jpeg'
 // Helpers
 import { useQuery } from '../../helpers/query'
 import Loading from '../../components/Loading'

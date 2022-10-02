@@ -8,20 +8,19 @@ import * as S from './styles'
 import Search from '../../components/Search'
 import Button from '../../components/Button'
 import ButtonIcon from '../../components/ButtonIcon'
+import ConfirmDeleteModal from '../../components/Modals/ConfirmDelete'
+import Alert from '../../components/Alert'
 // Requests
 import { deleteStudent, getStudents } from '../../api/Student'
 import { StudentData } from '../../api/Student/types'
 // Helpers
 import { maxLengthString } from '../../helpers/string'
-import Alert from '../../components/Alert'
-import ConfirmDeleteModal from '../../components/Modals/ConfirmDelete'
 
 const Dashboard = () => {
     const history = useHistory()
 
     const [page, setPage] = useState(0)
-    const [total, setTotal] = useState(0)
-    const [limit, setLimit] = useState(10)
+    const [limit, setLimit] = useState(99)
     const [search, setSearch] = useState('')
     const [students, setStudents] = useState<StudentData[]>([])
     const [deleteStudentId, setDeleteStudentId] = useState('')
@@ -34,10 +33,9 @@ const Dashboard = () => {
 
     const fetchStudents = async () => {
         const response = await getStudents(page, limit, search)
-        console.log(response.students)
+        
         setPage(response.page)
         setLimit(response.limit)
-        setTotal(response.total)
         setStudents(response.students)
     }
 

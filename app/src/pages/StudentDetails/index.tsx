@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import 'moment-timezone';
 import moment from 'moment'
 import {FaArrowLeft} from 'react-icons/fa'
@@ -15,6 +15,7 @@ import Loading from '../../components/Loading'
 import Row from '../../components/Row'
 // Styles
 import * as S from './styles'
+// Helpers
 import { useQuery } from '../../helpers/query';
 
 const StudentDetails = () => {
