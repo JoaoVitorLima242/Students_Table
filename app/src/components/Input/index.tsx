@@ -15,6 +15,7 @@ type InputProps = {
 }
 
 const Input = ({type, placeholder, defaultValue, register, disabled, onChange, name}: InputProps) => {
+    console.log(register)
     return (
         <S.Input
             type={type}
