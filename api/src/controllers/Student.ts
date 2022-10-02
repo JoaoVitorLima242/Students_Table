@@ -65,7 +65,7 @@ class StudentControllers {
         limit=10,
         page=0,
         search
-      } = req.params
+      } = req.query
 
       const data = await StudentSchema.list(Number(page), Number(limit), search)
       return res.json({ error: null, data })

@@ -6,10 +6,13 @@ import * as S from './styles'
 import { SearchProps } from './types'
 
 
-const Search = ({ placeholder }: SearchProps) => {
+const Search = ({ placeholder, onChange}: SearchProps) => {
   return (
     <S.Wrapper>
-      <S.Input placeholder={placeholder} />
+      <S.Input 
+        placeholder={placeholder} 
+        onChange={onChange}
+      />
       <S.InputIcon>
         <FaSearch />
       </S.InputIcon>

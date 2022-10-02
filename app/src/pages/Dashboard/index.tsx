@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { FaPlus, FaMapPin, FaMapMarkedAlt, FaRegEdit, FaTrashAlt, FaEye} from 'react-icons/fa'
 
 // Styles
@@ -35,6 +35,10 @@ const Dashboard = () => {
         fetchStudents()
     },[page, limit, search])
 
+    const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value)
+    }
+
     const goTo = (path: string) => history.push(path)
 
     const strMaxLength = 12
@@ -42,7 +46,8 @@ const Dashboard = () => {
     return (
         <S.Wrapper>
             <S.Interaction>
-                <Search 
+                <Search
+                    onChange={searchHandler}
                     placeholder='Search...'
                 />
                 <S.ButtonContainer>
