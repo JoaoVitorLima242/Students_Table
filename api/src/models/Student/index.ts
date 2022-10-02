@@ -42,7 +42,7 @@ StudentSchema.statics.list = function list(page: number, limit: number, search: 
     
     
     let queryPromise = this.find(query)
-      .sort({ createAt: -1 })
+      .sort({ createdAt: -1 })
       .skip(page * limit)
       .limit(limit)
       .exec()

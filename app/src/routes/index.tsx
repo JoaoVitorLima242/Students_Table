@@ -14,10 +14,10 @@ import { AddStudent } from "../pages/AddStudent";
 import Dashboard from "../pages/Dashboard";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
+import StudentDetails from "../pages/StudentDetails";
 
 type PrivateRoutesProps = {
     component: React.ElementType
-    activeMenu: string
     exact: boolean
     path: string
 }
@@ -25,13 +25,13 @@ type PrivateRoutesProps = {
 const Routes = () => {
     const isAuth = isAuthenticated()
 
-    const PrivateRoute = ({ component: Component, activeMenu, exact, path}: PrivateRoutesProps) => (
+    const PrivateRoute = ({ component: Component, exact, path}: PrivateRoutesProps) => (
         <Route
             exact={exact}
             path={path}
             render={(props) =>
                 isAuth ? (
-                    <Component {...props} activeMenu={activeMenu}/>
+                    <Component {...props}/>
                 ) : (
                     <Redirect
                         to={{ pathname: "/login", state: { from: props.location } }}
@@ -46,8 +46,9 @@ const Routes = () => {
             <div>
                 {isAuth && <Navbar />}
                 <Switch>
-                    <PrivateRoute exact component={Dashboard} path='/dashboard' activeMenu='dashboard'/>
-                    <PrivateRoute exact component={AddStudent} path='/add-student' activeMenu='add-student'/>
+                    <PrivateRoute exact component={Dashboard} path='/dashboard'/>
+                    <PrivateRoute exact component={AddStudent} path='/add-student'/>
+                    <PrivateRoute exact component={StudentDetails} path='/student/:id'/>
                     <Route path="/login" exact component={Login}/>
                     <Route path="/signup" exact component={SignUp}/>
                     <Route>

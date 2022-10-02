@@ -17,7 +17,9 @@ import * as S from './styles'
 import Placeholcer from '../../assets/images/personPlaceholder.jpeg'
 import { Link, useHistory } from 'react-router-dom'
 import Alert from '../../components/Alert'
-import { StudentDataResquest } from '../../api/Student/types'
+import { StudentData } from '../../api/Student/types'
+import ButtonIcon from '../../components/ButtonIcon'
+import { FaArrowLeft } from 'react-icons/fa'
 
 export const AddStudent = () =>{
     const {register, handleSubmit, setValue} = useForm()
@@ -27,7 +29,7 @@ export const AddStudent = () =>{
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const onSubmit = async (data: StudentDataResquest) => {
+    const onSubmit = async (data: StudentData) => {
         setLoading(true)
         const {error, message} = await createStudent(data)
         setLoading(false)
@@ -59,6 +61,11 @@ export const AddStudent = () =>{
             setValue('distric', address.bairro)
         }
     }
+
+    const goBackHandler = () => {
+        history.goBack()
+    }
+
     const UFs = ['AC',
     'AL',
     'AP',
@@ -91,6 +98,9 @@ export const AddStudent = () =>{
     return(
         <S.Wrapper>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                    <ButtonIcon onClick={goBackHandler}><FaArrowLeft/></ButtonIcon>
+                </div>
                 <Row>
                     <Col>
                         <h2>Adicione um estudante!</h2>

@@ -74,6 +74,20 @@ class StudentControllers {
     }
   }
 
+  public async getStudentById (req: Request, res: Response): Promise<Response> {
+    try {
+      const {
+        id
+      } = req.params
+
+      const data = await StudentSchema.findOne({_id: id})
+      console.log(data)
+      return res.json({ error: null, data })
+    } catch (error) {
+      return res.status(400).json({error: true, message: error.message})
+    }
+  }
+
 }
 
 export default new StudentControllers()

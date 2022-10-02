@@ -10,7 +10,7 @@ import Button from '../../components/Button'
 import ButtonIcon from '../../components/ButtonIcon'
 // Requests
 import { getStudents } from '../../api/Student'
-import { StudentDataResquest } from '../../api/Student/types'
+import { StudentData } from '../../api/Student/types'
 // Helpers
 import { maxLengthString } from '../../helpers/string'
 
@@ -21,11 +21,11 @@ const Dashboard = () => {
     const [total, setTotal] = useState(0)
     const [limit, setLimit] = useState(10)
     const [search, setSearch] = useState('')
-    const [students, setStudents] = useState<StudentDataResquest[]>([])
+    const [students, setStudents] = useState<StudentData[]>([])
 
     useEffect(() => {
         const fetchStudents = async () => {
-            const response = await getStudents({page, limit, search})
+            const response = await getStudents(page, limit, search)
             setPage(response.page)
             setLimit(response.limit)
             setTotal(response.total)
@@ -71,7 +71,7 @@ const Dashboard = () => {
                                         <p><FaMapMarkedAlt/><span>{maxLengthString(strMaxLength,address.city)} |  {address.uf}</span></p>
                                     </S.InfoWithIcon>
                                     <S.ButtonsIconsContainer>
-                                        <ButtonIcon><FaEye/></ButtonIcon>
+                                        <ButtonIcon onClick={() => goTo(`/student/${_id}`)}><FaEye/></ButtonIcon>
                                         <ButtonIcon color='green'><FaRegEdit/></ButtonIcon>
                                         <ButtonIcon color='red'><FaTrashAlt/></ButtonIcon>
                                     </S.ButtonsIconsContainer>

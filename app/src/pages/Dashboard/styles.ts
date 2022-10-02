@@ -25,11 +25,12 @@ export const ButtonContainer = styled.div`
             margin-right: 4px;
         }
     }
-`
+` 
 
 export const StudentsGrid = styled.div`
     display: grid;
     padding-top: 30px;
+    justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(320px, 450px));
     grid-gap: 2rem;
     width: 100%;
@@ -60,6 +61,7 @@ export const Infos = styled.div`
     margin-left: 10px;
     border-left: 1px solid #e1e6f0;
     flex: 1;
+    padding-bottom: 50px;
 `
 
 export const InfoWithIcon = styled.div`
@@ -77,7 +79,9 @@ export const InfoWithIcon = styled.div`
 
 export const ButtonsIconsContainer = styled.div`
     display: flex;
-    position: relative;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
     justify-content: flex-end;
     padding-top: 10px;
 

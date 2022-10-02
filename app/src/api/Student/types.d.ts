@@ -1,4 +1,4 @@
-export type StudentDataResquest = {
+export type StudentData = {
     _id: string
     name: string;
     picture: string;
@@ -11,11 +11,17 @@ export type StudentDataResquest = {
         city: string
         cep: string   
     };
+    createdAt: Date,
+    updateAt: Date,
 }
 
 export type getStudents = {
     limit: number
     page: number
     total: number
-    students: StudentDataResquest[] | undefined
+    students: StudentData[] | undefined
+}
+
+export type getStudentById = {
+    data: StudentData
 }

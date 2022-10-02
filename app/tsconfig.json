@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/FormComponents/Select/styles.js"  ],
+, "src/components/FormComponents/Select/styles.js", "src/pages/StudentDetails/index.tsz"  ],
   "exclude": [
     "node_modules"
   ]
