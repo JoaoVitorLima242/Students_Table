@@ -29,7 +29,7 @@ class StudentControllers {
       cep
     }: StudentRequest = req.body
 
-    if (name === undefined || city === undefined || street === undefined || houseNr === undefined || uf === undefined || distric === undefined || picture === undefined) {
+    if (!name || !city || !street || !houseNr || !uf || !distric || !picture) {
       return res.status(400).json({ error:true, message:'Preencha todos os campos.' })
     }
 
@@ -67,7 +67,7 @@ class StudentControllers {
         search
       } = req.query
 
-      const data = await StudentSchema.list(Number(page), Number(limit), search)
+      const data = await StudentSchema.list(Number(page), Number(limit), search.toString())
       return res.json({ error: null, data })
     } catch (error) {
       return res.status(400).json({error: true, message: error.message})
@@ -110,7 +110,7 @@ class StudentControllers {
       res.status(400).json({error: true, message: 'Estudante não encontrado!'})
     }
 
-    if (name === undefined || city === undefined || street === undefined || houseNr === undefined || uf === undefined || distric === undefined || picture === undefined) {
+    if (!name || !city || !street || !houseNr || !uf || !distric || !picture) {
       return res.status(400).json({ error:true, message:'Campos obrigatórios vázios.' })
     }
 
