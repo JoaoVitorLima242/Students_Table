@@ -4,7 +4,7 @@ Aplicação desevolvida para demonstrar meus conhecimentos em Node.js e React.js
 ## Link para APP: https://students-table-three.vercel.app/
 
 ### Caso queira roda em desenvolvimento:
-Irei disponibilizar os **.envs** da app e api. Após adicionar os **.envs** segundo os exemplos, rodar o **yarn** em ambas as pastas. **Atenção**, rodar o **yarn dev** na api e o **yarn start** no app. Assim você conseguirá ver a aplicação rodando.
+Irei disponibilizar os **.envs** da app e api. Após adicionar os **.envs** segundo os exemplos, **deve ser adicionado uma pasta public/img no root da api** para poder salvar as imagens, apos rodar o **yarn** em ambas as pastas. **Atenção**, rodar o **yarn dev** na api e o **yarn start** no app. Assim você conseguirá ver a aplicação rodando.
 
 ### Feramentas Utilizadas
 - Typescript
