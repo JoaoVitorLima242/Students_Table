@@ -27,18 +27,16 @@ const SignUp = () => {
     }
 
     const onSubmit = async (data: RegisterData) => {
-        console.log(data)
-
         setLoading(true)
         const {message, error, token } = await registerRequest(data)
+        setLoading(false)
         if (error) {
             setError(message)
             return
         }
         
         cookies.set('auth-token', token, {expires: 86400})
-        setTimeout(() => history.push('/dashboard') , 1 * 100)
-        setLoading(false)
+        setTimeout(() => history.push('/dashboard') , 1 * 1000)
     }
 
     return (
