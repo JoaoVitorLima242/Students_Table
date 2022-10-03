@@ -54,6 +54,11 @@ export const ImageContent = styled.div`
     img {
         width: 100%;
     }
+
+    @media all and (max-width: 600px) {
+        max-width: 80px;
+        max-height: 80px;
+    }
 `
 
 export const Infos = styled.div`
@@ -92,4 +97,11 @@ export const ButtonsIconsContainer = styled.div`
 
 export const WithoutStudent = styled.div`
 
+`
+
+export const Loading = styled.div`
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `

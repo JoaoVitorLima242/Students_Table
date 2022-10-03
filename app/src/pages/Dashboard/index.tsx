@@ -15,6 +15,7 @@ import { deleteStudent, getStudents } from '../../api/Student'
 import { StudentData } from '../../api/Student/types'
 // Helpers
 import { maxLengthString } from '../../helpers/string'
+import Loading from '../../components/Loading'
 
 const Dashboard = () => {
     const history = useHistory()
@@ -25,6 +26,7 @@ const Dashboard = () => {
     const [students, setStudents] = useState<StudentData[]>([])
     const [deleteStudentId, setDeleteStudentId] = useState('')
     const [modal, setModal] = useState(false)
+    const [loading, setLoading] = useState(true)
     
 
     useEffect(() => {
@@ -32,8 +34,9 @@ const Dashboard = () => {
     },[search])
 
     const fetchStudents = async () => {
+        setLoading(true)
         const response = await getStudents(page, limit, search)
-        
+        setLoading(false)
         setPage(response.page)
         setLimit(response.limit)
         setStudents(response.students)
@@ -78,35 +81,43 @@ const Dashboard = () => {
                     </Button>
                 </S.ButtonContainer>
             </S.Interaction>
-            <S.StudentsGrid>
-                {!!students && students?.length > 0 ?
-                    students.map(({picture, name, address, _id}) => {
-                        return (
-                            <S.StudentCard key={_id}>
-                                <S.ImageContent>
-                                    <img src={picture} alt=''/>
-                                </S.ImageContent>
-                                <S.Infos>
-                                    <h4>{name}</h4>
-                                    <S.InfoWithIcon>
-                                        <p><FaMapPin/><span>{maxLengthString(strMaxLength,address?.street)} | {address.houseNr} {address.complement && `| ${address.complement}`} </span></p>
-                                        <p><FaMapMarkedAlt/><span>{maxLengthString(strMaxLength,address?.city)} |  {address.uf}</span></p>
-                                    </S.InfoWithIcon>
-                                    <S.ButtonsIconsContainer>
-                                        <ButtonIcon onClick={() => goTo(`/student?studentId=${_id}`)}><FaEye/></ButtonIcon>
-                                        <ButtonIcon onClick={() => goTo(`/student/edit?studentId=${_id}`)} color='green'><FaRegEdit/></ButtonIcon>
-                                        <ButtonIcon onClick={() => selectStudentToDelete(_id)} color='red'><FaTrashAlt/></ButtonIcon>
-                                    </S.ButtonsIconsContainer>
-                                </S.Infos>
-                            </S.StudentCard>
-                        )
-                    })
+            {
+                loading ? 
+                    <S.Loading>
+                        <Loading/>
+                    </S.Loading>
                 :
-                    <S.WithoutStudent>
-                        <Alert>Você não tem nenhum estudante salvo. <Link to='/add-student'>Acesse o formulário para adicionar!</Link></Alert>
-                    </S.WithoutStudent>
-                }
-            </S.StudentsGrid>
+                    <S.StudentsGrid>
+                        {!!students && students?.length > 0 ?
+                            students.map(({picture, name, address, _id}) => {
+                                return (
+                                    <S.StudentCard key={_id}>
+                                        <S.ImageContent>
+                                            <img src={picture} alt=''/>
+                                        </S.ImageContent>
+                                        <S.Infos>
+                                            <h4>{name}</h4>
+                                            <S.InfoWithIcon>
+                                                <p><FaMapPin/><span>{maxLengthString(strMaxLength,address?.street)} | {address.houseNr} {address.complement && `| ${address.complement}`} </span></p>
+                                                <p><FaMapMarkedAlt/><span>{maxLengthString(strMaxLength,address?.city)} |  {address.uf}</span></p>
+                                            </S.InfoWithIcon>
+                                            <S.ButtonsIconsContainer>
+                                                <ButtonIcon onClick={() => goTo(`/student?studentId=${_id}`)}><FaEye/></ButtonIcon>
+                                                <ButtonIcon onClick={() => goTo(`/student/edit?studentId=${_id}`)} color='green'><FaRegEdit/></ButtonIcon>
+                                                <ButtonIcon onClick={() => selectStudentToDelete(_id)} color='red'><FaTrashAlt/></ButtonIcon>
+                                            </S.ButtonsIconsContainer>
+                                        </S.Infos>
+                                    </S.StudentCard>
+                                )
+                            })
+                        :
+                            <S.WithoutStudent>
+                                <Alert>Você não tem nenhum estudante salvo. <Link to='/add-student'>Acesse o formulário para adicionar!</Link></Alert>
+                            </S.WithoutStudent>
+                        }
+                    </S.StudentsGrid>
+
+            }
             <ConfirmDeleteModal 
                 isOpen={modal}
                 onClose={modalHandler}
