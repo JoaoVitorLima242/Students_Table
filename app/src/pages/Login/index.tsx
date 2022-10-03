@@ -41,7 +41,7 @@ const Login = () => {
         }
         
         cookies.set('auth-token', token, {expires: 86400})
-        history.push('/dashboard')
+        setTimeout(() => history.push('/dashboard') , 1 * 1000)
     }
 
     return (
