@@ -31,14 +31,14 @@ const SignUp = () => {
 
         setLoading(true)
         const {message, error, token } = await registerRequest(data)
-        setLoading(false)
         if (error) {
             setError(message)
             return
         }
         
         cookies.set('auth-token', token, {expires: 86400})
-        history.push('/dashboard')
+        setTimeout(() => history.push('/dashboard') , 1 * 100)
+        setLoading(false)
     }
 
     return (
