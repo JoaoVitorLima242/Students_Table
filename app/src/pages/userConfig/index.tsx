@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 import { FaArrowLeft } from 'react-icons/fa'
 
 //Requests
-import { registerRequest } from '../../api/Auth'
 import { UserData } from '../../api/User/type'
 // Components
 import Alert from '../../components/Alert'
@@ -27,7 +26,7 @@ const UserConfig = () => {
 
     useEffect(() => {
         getUser()
-    }, )
+    }, [])
 
     const getUser = async () => {
         const {user} = await getUserByToken()
