@@ -1,5 +1,7 @@
 # Students_Table
-Aplicação desevolvida para demonstrar meus conhecimento em Node.js e React.js. 
+Aplicação desevolvida para demonstrar meus conhecimento em Node.js e React.js.
+
+## Link para APP:
 
 ### Caso queira roda em desenvolvimento:
 Irei disponibilizar os **.envs** da app e api. Após adicionar os **.envs** segundo os exemplos, rodar o **yarn** em ambas as pastas. **Atenção**, rodar o **yarn dev** na api e o **yarn start** na app. Assim a vc conseguira ver a aplicação rodando.
@@ -9,4 +11,5 @@ Irei disponibilizar os **.envs** da app e api. Após adicionar os **.envs** segu
 - React.JS
 - Node.JS
 - MongoDB
-- Heroku 
+- Heroku
+- Vercel
