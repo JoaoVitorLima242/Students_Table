@@ -1,12 +1,7 @@
 # Students_Table
-Aplicação desevolvida para demonstrar meus conhecimentos em Node.js e React.js. App desenvolvido com React para criar um ambiente SPA(Single Page Application) e Styled Components para utilizar o JavaScript em conjunto com CSS. Também para ter um código mais organizado utilizei o Typescript nos dois ambientes(APP e API) adicionado tipagem no JS. Para o densenvolvimento da API, utilizei Node.JS com express para desenvolver o ambiente com todas as rotas, controllers, models, helpers e config. Para armazenar os dados, subi na nuvem um cluster com o MongoDB, no qual é um banco de dados noSQL. Fiz deploy da api no Heroku e app na Vercel.
+Application develop for show my knowledges in Node.js and React.js. App developed with React to create a SPA(Single Page Application) environment and Styled Components to use JavaScript together with CSS. Also to have a more organized code I used Typescript in both environments (APP and API) added typing in JS. For the development of the API, I used Node.JS with express to develop the environment with all the routes, controllers, models, helpers and config. To store the data, I uploaded a cluster with MongoDB to the cloud, which is a noSQL database. I deployed the api on Heroku and the app on Vercel.
 
-## Link para APP: https://students-table-three.vercel.app/
-
-### Caso queira roda em desenvolvimento:
-Irei disponibilizar os **.envs** da app e api. Após adicionar os **.envs** segundo os exemplos, **deve ser adicionado uma pasta public/img no root da api** para poder salvar as imagens. Depois rodar o **yarn** em ambas as pastas para instalar dependencias. **Atenção**, rodar o **yarn dev** na api e o **yarn start** no app. Assim você conseguirá ver a aplicação rodando.
-
-### Feramentas Utilizadas
+### Toys:
 - Typescript
 - React-hook-form
 - Styled Components
